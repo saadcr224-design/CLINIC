@@ -1,0 +1,37 @@
+<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalSpecialty', name: department.name.en, description: department.description.en } }) %>
+<%- include('../partials/pagehead', { heading: L(department.name), lead: L(department.summary), image: department.image, crumbs: [[url('/departments'), t('nav.departments')]] }) %>
+<section class="section">
+  <div class="container split split-wide">
+    <div>
+      <p class="lead-dark"><%= L(department.description) %></p>
+      <h2><%= t('departments.services') %></h2>
+      <ul class="checklist">
+        <% L(department.services).forEach(s => { %><li><svg class="ic"><use href="#i-check"/></svg><%= s %></li><% }) %>
+      </ul>
+    </div>
+    <aside class="side-card">
+      <h2><%= t('nav.book') %></h2>
+      <p><%= t('book.lead') %></p>
+      <a class="btn btn-primary btn-block" href="<%= url('/book?dept=' + department.slug) %>"><svg class="ic"><use href="#i-calendar"/></svg><%= t('nav.book') %></a>
+      <a class="btn btn-outline btn-block" href="tel:<%= site.phone %>"><svg class="ic"><use href="#i-phone"/></svg><span dir="ltr"><%= site.phoneDisplay %></span></a>
+      <a class="btn btn-outline btn-block" href="https://wa.me/<%= site.whatsapp %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg><%= t('common.whatsapp') %></a>
+    </aside>
+  </div>
+</section>
+<% if (doctors.length) { %>
+<section class="section section-alt">
+  <div class="container">
+    <h2><%= t('departments.doctors') %></h2>
+    <div class="grid grid-4"><% doctors.forEach(d => { %><%- include('../partials/doctor-card', { d }) %><% }) %></div>
+  </div>
+</section>
+<% } %>
+<section class="section">
+  <div class="container">
+    <h2><%= t('departments.other') %></h2>
+    <ul class="pill-links">
+      <% departments.filter(d => d.slug !== department.slug).forEach(d => { %><li><a href="<%= url('/departments/' + d.slug) %>"><svg class="ic"><use href="#i-<%= d.icon %>"/></svg><%= L(d.name) %></a></li><% }) %>
+    </ul>
+  </div>
+</section>
+<%- include('../partials/footer') %>

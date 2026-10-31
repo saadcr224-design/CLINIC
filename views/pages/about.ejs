@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('about.title'), lead: t('about.lead'), image: site.images.about }) %>
+<section class="section">
+  <div class="container grid grid-3">
+    <div class="value-card"><span class="feature-icon"><svg class="ic"><use href="#i-heart"/></svg></span><h2><%= t('about.missionTitle') %></h2><p><%= t('about.mission') %></p></div>
+    <div class="value-card"><span class="feature-icon"><svg class="ic"><use href="#i-eye"/></svg></span><h2><%= t('about.visionTitle') %></h2><p><%= t('about.vision') %></p></div>
+    <div class="value-card"><span class="feature-icon"><svg class="ic"><use href="#i-shield"/></svg></span><h2><%= t('about.valuesTitle') %></h2><p><%= t('about.values') %></p></div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container">
+    <ul class="stats stats-light">
+      <% site.stats.forEach(s => { %><li><strong><%= s.value %></strong><span><%= L(s.label) %></span></li><% }) %>
+    </ul>
+  </div>
+</section>
+<section class="section">
+  <div class="container split">
+    <div>
+      <h2><%= t('about.historyTitle') %></h2>
+      <ol class="timeline">
+        <% [['2001', 1], ['2008', 2], ['2012', 3], ['2019', 4], ['2025', 5]].forEach(([y, n]) => { %>
+          <li><span class="year"><%= y %></span><p><%= t('about.h' + n) %></p></li>
+        <% }) %>
+      </ol>
+    </div>
+    <div class="split-media"><img src="<%= site.images.team %>" srcset="<%= srcset(site.images.team, [600, 1000]) %>" sizes="(max-width: 900px) 100vw, 50vw" alt="<%= lang === 'ar' ? 'فريقنا الطبي' : 'Our medical team' %>" loading="lazy" width="700" height="520"></div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container">
+    <h2><%= t('about.facilityTitle') %></h2>
+    <div class="gallery">
+      <% ['facility1', 'facility2', 'facility3', 'facility4'].forEach((k, i) => {
+           const alts = { en: ['Patient room', 'Operating theatre', 'Inpatient suite', 'Clinical team at work'], ar: ['غرفة المريض', 'غرفة العمليات', 'جناح التنويم', 'الفريق الطبي أثناء العمل'] }; %>
+        <figure><img src="<%= site.images[k] %>" srcset="<%= srcset(site.images[k], [400, 900]) %>" sizes="(max-width: 700px) 50vw, 25vw" alt="<%= alts[lang][i] %>" loading="lazy" width="450" height="320"><figcaption><%= alts[lang][i] %></figcaption></figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head"><div><h2><%= t('about.accreditationTitle') %></h2><p><%= t('about.accreditationText') %></p></div></div>
+    <ul class="badges">
+      <% site.accreditations.forEach(a => { %><li><svg class="ic"><use href="#i-award"/></svg><strong><%= a.code %></strong><span><%= L(a.label) %></span></li><% }) %>
+    </ul>
+  </div>
+</section>
+<%- include('../partials/footer') %>

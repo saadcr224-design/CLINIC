@@ -1,0 +1,9 @@
+{
+  "name": "Wahat Medical Center",
+  "short_name": "Wahat",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b5d6b",
+  "icons": [{ "src": "/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

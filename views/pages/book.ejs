@@ -1,0 +1,96 @@
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('book.title'), lead: t('book.lead') }) %>
+<section class="section">
+  <div class="container book-grid">
+    <form id="booking-form" class="card booking-form" action="/api/appointments" method="post" novalidate data-doctors-url="/api/doctors" data-slots-url="/api/slots">
+      <fieldset>
+        <legend><span class="step">1</span><%= t('book.step1') %></legend>
+        <div class="row-2">
+          <div class="field">
+            <label for="b-dept"><%= t('book.department') %> *</label>
+            <select id="b-dept" name="department" required>
+              <option value="">—</option>
+              <% departments.forEach(d => { %><option value="<%= d.slug %>"<%= preDept === d.slug ? ' selected' : '' %>><%= L(d.name) %></option><% }) %>
+            </select>
+          </div>
+          <div class="field">
+            <label for="b-doctor"><%= t('book.doctor') %></label>
+            <select id="b-doctor" name="doctorChoice" data-pre="<%= preDoctor %>">
+              <option value=""><%= t('book.anyDoctor') %></option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <span class="label"><%= t('book.visitType') %></span>
+          <div class="segmented">
+            <label><input type="radio" name="visitType" value="clinic" checked><span><svg class="ic"><use href="#i-pin"/></svg><%= t('book.inPerson') %></span></label>
+            <label><input type="radio" name="visitType" value="video"><span><svg class="ic"><use href="#i-video"/></svg><%= t('book.video') %></span></label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend><span class="step">2</span><%= t('book.step2') %></legend>
+        <div class="field">
+          <label for="b-date"><%= t('book.date') %> *</label>
+          <input id="b-date" type="date" name="date" required>
+        </div>
+        <div class="field">
+          <span class="label" id="slots-label"><%= t('book.time') %> *</span>
+          <div class="slots" id="slots" role="radiogroup" aria-labelledby="slots-label"><p class="muted"><%= t('book.pickDate') %></p></div>
+        </div>
+        <input type="hidden" name="doctor"><input type="hidden" name="time">
+      </fieldset>
+      <fieldset>
+        <legend><span class="step">3</span><%= t('book.step3') %></legend>
+        <div class="row-2">
+          <div class="field"><label for="b-name"><%= t('common.name') %> *</label><input id="b-name" name="name" required autocomplete="name" maxlength="80"></div>
+          <div class="field"><label for="b-phone"><%= t('common.phone') %> *</label><input id="b-phone" name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="05XXXXXXXX" dir="ltr" maxlength="20"></div>
+          <div class="field"><label for="b-email"><%= t('common.email') %></label><input id="b-email" name="email" type="email" autocomplete="email" dir="ltr" maxlength="254"></div>
+          <div class="field"><label for="b-nid"><%= t('book.nationalId') %> *</label><input id="b-nid" name="nationalId" required inputmode="numeric" pattern="[12][0-9]{9}" maxlength="10" dir="ltr" autocomplete="off"></div>
+          <div class="field"><label for="b-dob"><%= t('book.dob') %></label><input id="b-dob" name="dob" type="date" autocomplete="bday"></div>
+          <div class="field">
+            <label for="b-ins"><%= t('book.insurance') %></label>
+            <select id="b-ins" name="insurance">
+              <option value="self-pay"><%= t('book.selfPay') %></option>
+              <% providers.forEach(p => { %><option><%= p %></option><% }) %>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="b-reason"><%= t('book.reason') %> <small>(<%= t('common.optional') %>)</small></label><textarea id="b-reason" name="reason" rows="3" maxlength="500"></textarea></div>
+        <label class="check"><input type="checkbox" name="reminders" checked><span><%= t('book.reminders') %></span></label>
+        <label class="check"><input type="checkbox" name="consent" required><span><%= t('book.consent') %> <a href="<%= url('/privacy') %>" target="_blank"><%= t('footer.privacy') %></a></span></label>
+        <%- include('../partials/captcha', { id: 'b' }) %>
+      </fieldset>
+      <button class="btn btn-primary btn-lg btn-block" type="submit"><svg class="ic"><use href="#i-check"/></svg><%= t('book.confirm') %></button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+
+    <aside class="book-side">
+      <div class="card summary-card" id="summary" aria-live="polite">
+        <h2><%= t('book.summary') %></h2>
+        <dl>
+          <div><dt><%= t('book.department') %></dt><dd data-sum="department">—</dd></div>
+          <div><dt><%= t('book.doctor') %></dt><dd data-sum="doctor">—</dd></div>
+          <div><dt><%= t('book.date') %></dt><dd data-sum="date">—</dd></div>
+          <div><dt><%= t('book.time') %></dt><dd data-sum="time" dir="ltr">—</dd></div>
+        </dl>
+        <p class="muted small"><%= t('book.payNote') %></p>
+      </div>
+      <div class="card side-help">
+        <img src="<%= site.images.booking %>" srcset="<%= srcset(site.images.booking, [400, 800]) %>" sizes="360px" alt="" loading="lazy" width="360" height="200">
+        <p><svg class="ic"><use href="#i-lock"/></svg><%= t('portal.secure') %></p>
+        <a class="btn btn-outline btn-block" href="https://wa.me/<%= site.whatsapp %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg><%= t('common.whatsapp') %></a>
+      </div>
+    </aside>
+
+    <div class="card success-card" id="booking-success" hidden tabindex="-1">
+      <span class="success-icon"><svg class="ic"><use href="#i-check"/></svg></span>
+      <h2><%= t('book.successTitle') %></h2>
+      <p><%= t('book.successText') %> <strong class="js-ref" dir="ltr"></strong></p>
+      <p class="js-details"></p>
+      <p class="muted"><%= t('book.fee') %>: <strong class="js-fee"></strong> · <%= t('book.payNote') %></p>
+      <div class="btn-row"><a class="btn btn-primary" href="<%= url('/') %>"><%= t('common.home') %></a><a class="btn btn-outline" href="<%= url('/portal') %>"><%= t('nav.portal') %></a></div>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer', { scripts: ['booking'] }) %>

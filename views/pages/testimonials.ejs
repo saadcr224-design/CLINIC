@@ -1,0 +1,37 @@
+<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalClinic', name: site.name.en,
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: avg.toFixed(1), reviewCount: reviews.length },
+  review: reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.name.en }, reviewRating: { '@type': 'Rating', ratingValue: r.rating }, reviewBody: r.text.en, datePublished: r.date })) } }) %>
+<%- include('../partials/pagehead', { heading: t('testimonials.title'), lead: t('testimonials.lead') }) %>
+<section class="section">
+  <div class="container">
+    <div class="rating-summary">
+      <strong><%= avg.toFixed(1) %></strong>
+      <div><%- include('../partials/stars', { n: Math.round(avg) }) %><p><%= t('testimonials.average') %> <%= reviews.length %> <%= t('common.reviews') %></p></div>
+    </div>
+    <div class="grid grid-3"><% reviews.forEach(r => { %><%- include('../partials/review-card', { r }) %><% }) %></div>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container narrow">
+    <form class="card js-form" action="/api/reviews" method="post" novalidate>
+      <h2><%= t('testimonials.leave') %></h2>
+      <p class="muted"><%= t('testimonials.leaveText') %></p>
+      <div class="row-2">
+        <div class="field"><label for="r-name"><%= t('common.name') %> *</label><input id="r-name" name="name" required maxlength="80" autocomplete="name"></div>
+        <div class="field">
+          <label for="r-dept"><%= t('book.department') %></label>
+          <select id="r-dept" name="department"><option value="">—</option><% departments.forEach(d => { %><option value="<%= d.slug %>"><%= L(d.name) %></option><% }) %></select>
+        </div>
+      </div>
+      <fieldset class="field star-input">
+        <legend><%= t('testimonials.yourRating') %> *</legend>
+        <% for (let i = 5; i >= 1; i--) { %><input type="radio" id="star<%= i %>" name="rating" value="<%= i %>"<%= i === 5 ? ' checked' : '' %>><label for="star<%= i %>" title="<%= i %>"><svg class="ic"><use href="#i-star"/></svg><span class="sr-only"><%= i %></span></label><% } %>
+      </fieldset>
+      <div class="field"><label for="r-text"><%= t('testimonials.yourReview') %> *</label><textarea id="r-text" name="text" rows="4" required maxlength="1000"></textarea></div>
+      <%- include('../partials/captcha', { id: 'r' }) %>
+      <button class="btn btn-primary" type="submit"><%= t('common.submit') %></button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+<%- include('../partials/footer') %>

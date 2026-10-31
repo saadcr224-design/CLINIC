@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "name": {
+        "en": "Abdullah M.",
+        "ar": "عبدالله م."
+      },
+      "rating": 5,
+      "department": "cardiology",
+      "date": "2026-09-14",
+      "text": {
+        "en": "Dr. Khalid took the time to explain every test result. The cardiac rehab team got me back to walking every evening within weeks.",
+        "ar": "شرح لي د. خالد كل نتيجة فحص بالتفصيل. وساعدني فريق التأهيل القلبي على العودة للمشي كل مساء خلال أسابيع."
+      }
+    },
+    {
+      "name": {
+        "en": "Reem A.",
+        "ar": "ريم أ."
+      },
+      "rating": 5,
+      "department": "obstetrics-gynecology",
+      "date": "2026-08-30",
+      "text": {
+        "en": "I followed my whole pregnancy with Dr. Sarah. Booking online and getting WhatsApp reminders made everything so easy.",
+        "ar": "تابعت حملي كاملاً مع د. سارة. الحجز الإلكتروني وتذكيرات الواتساب جعلت كل شيء سهلاً للغاية."
+      }
+    },
+    {
+      "name": {
+        "en": "Imran K.",
+        "ar": "عمران ك."
+      },
+      "rating": 5,
+      "department": "orthopedics",
+      "date": "2026-08-02",
+      "text": {
+        "en": "After my football injury I was worried about surgery. Dr. Omar's physio plan fixed my knee without it.",
+        "ar": "بعد إصابتي في كرة القدم كنت قلقاً من الجراحة. خطة العلاج الطبيعي من د. عمر عالجت ركبتي دون الحاجة إليها."
+      }
+    },
+    {
+      "name": {
+        "en": "Hessa S.",
+        "ar": "حصة س."
+      },
+      "rating": 5,
+      "department": "pediatrics",
+      "date": "2026-07-21",
+      "text": {
+        "en": "Dr. Noura is wonderful with children. My son actually looks forward to his check-ups now!",
+        "ar": "د. نورة رائعة مع الأطفال. أصبح ابني يتطلع لمواعيد الفحص الآن!"
+      }
+    },
+    {
+      "name": {
+        "en": "Mark T.",
+        "ar": "مارك ت."
+      },
+      "rating": 4,
+      "department": "dental",
+      "date": "2026-06-11",
+      "text": {
+        "en": "Professional, spotless clinic and staff who speak excellent English. My implant was painless.",
+        "ar": "عيادة احترافية ونظيفة جداً وطاقم يتحدث الإنجليزية بطلاقة. كانت زراعة السن بلا ألم."
+      }
+    },
+    {
+      "name": {
+        "en": "Fatimah Z.",
+        "ar": "فاطمة ز."
+      },
+      "rating": 5,
+      "department": "internal-medicine",
+      "date": "2026-05-28",
+      "text": {
+        "en": "My HbA1c dropped from 9.1 to 6.8 with Dr. Ahmed's diabetes programme. The dietitian sessions were a game changer.",
+        "ar": "انخفض السكر التراكمي لدي من 9.1 إلى 6.8 مع برنامج د. أحمد. جلسات أخصائية التغذية غيرت كل شيء."
+      }
+    }
+  ]
+}

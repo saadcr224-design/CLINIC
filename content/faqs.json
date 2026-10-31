@@ -1,0 +1,103 @@
+{
+  "items": [
+    {
+      "category": "appointments",
+      "q": {
+        "en": "How do I book an appointment?",
+        "ar": "كيف أحجز موعداً؟"
+      },
+      "a": {
+        "en": "Book online 24/7 from our Book Appointment page, call us, or message us on WhatsApp. You will receive a confirmation by SMS and email.",
+        "ar": "احجز إلكترونياً على مدار الساعة من صفحة حجز موعد، أو اتصل بنا، أو راسلنا عبر واتساب. ستصلك رسالة تأكيد عبر الرسائل النصية والبريد الإلكتروني."
+      }
+    },
+    {
+      "category": "appointments",
+      "q": {
+        "en": "Can I cancel or reschedule?",
+        "ar": "هل يمكنني إلغاء الموعد أو تغييره؟"
+      },
+      "a": {
+        "en": "Yes. Use the link in your confirmation message, the patient portal, or call reception at least 4 hours before your appointment.",
+        "ar": "نعم. استخدم الرابط في رسالة التأكيد أو بوابة المرضى، أو اتصل بالاستقبال قبل موعدك بأربع ساعات على الأقل."
+      }
+    },
+    {
+      "category": "appointments",
+      "q": {
+        "en": "What should I bring to my first visit?",
+        "ar": "ماذا أحضر في زيارتي الأولى؟"
+      },
+      "a": {
+        "en": "Your National ID or Iqama, insurance card, a list of current medicines and any previous reports or scans. Please arrive 15 minutes early.",
+        "ar": "الهوية الوطنية أو الإقامة، وبطاقة التأمين، وقائمة بأدويتك الحالية، وأي تقارير أو صور أشعة سابقة. يرجى الحضور قبل الموعد بربع ساعة."
+      }
+    },
+    {
+      "category": "insurance",
+      "q": {
+        "en": "Which insurance companies do you accept?",
+        "ar": "ما شركات التأمين التي تتعاملون معها؟"
+      },
+      "a": {
+        "en": "We work with most major insurers in the Kingdom. See our Insurance & Payment page for the full list, or call us to verify your policy.",
+        "ar": "نتعامل مع معظم شركات التأمين الكبرى في المملكة. اطلع على صفحة التأمين والدفع للقائمة الكاملة، أو اتصل بنا للتحقق من وثيقتك."
+      }
+    },
+    {
+      "category": "insurance",
+      "q": {
+        "en": "Can I pay without insurance?",
+        "ar": "هل يمكنني الدفع بدون تأمين؟"
+      },
+      "a": {
+        "en": "Yes. We accept mada, Visa, Mastercard, Apple Pay, STC Pay and cash. Consultation fees are shown when you book.",
+        "ar": "نعم. نقبل مدى وفيزا وماستركارد وآبل باي وSTC Pay والدفع النقدي. تظهر رسوم الاستشارة عند الحجز."
+      }
+    },
+    {
+      "category": "general",
+      "q": {
+        "en": "Do you have female doctors?",
+        "ar": "هل يوجد طبيبات؟"
+      },
+      "a": {
+        "en": "Yes. Many of our departments have female consultants, and our obstetrics & gynecology team is all-female. You can filter doctors by gender.",
+        "ar": "نعم. يوجد طبيبات استشاريات في كثير من الأقسام، وفريق النساء والولادة نسائي بالكامل. يمكنك تصفية الأطباء حسب الجنس."
+      }
+    },
+    {
+      "category": "general",
+      "q": {
+        "en": "Is parking available?",
+        "ar": "هل تتوفر مواقف سيارات؟"
+      },
+      "a": {
+        "en": "Free underground parking and valet service are available for patients and visitors.",
+        "ar": "تتوفر مواقف مجانية تحت الأرض وخدمة صف السيارات للمرضى والزوار."
+      }
+    },
+    {
+      "category": "privacy",
+      "q": {
+        "en": "How do you protect my medical information?",
+        "ar": "كيف تحمون معلوماتي الطبية؟"
+      },
+      "a": {
+        "en": "Your records are encrypted in transit and at rest, access is limited by role and every access is logged. We comply with the Saudi Personal Data Protection Law (PDPL). See our Data Protection notice.",
+        "ar": "سجلاتك مشفرة أثناء النقل والتخزين، والوصول إليها محدود حسب الصلاحيات ويتم تسجيل كل وصول. نلتزم بنظام حماية البيانات الشخصية السعودي. اطلع على إشعار حماية البيانات."
+      }
+    },
+    {
+      "category": "emergency",
+      "q": {
+        "en": "What should I do in an emergency?",
+        "ar": "ماذا أفعل في حالة الطوارئ؟"
+      },
+      "a": {
+        "en": "For life-threatening emergencies call 997 (Saudi Red Crescent) immediately. Our emergency department is open 24/7, and you can request our ambulance using the red Emergency button.",
+        "ar": "في الحالات التي تهدد الحياة اتصل فوراً بالرقم 997 (الهلال الأحمر السعودي). قسم الطوارئ لدينا يعمل على مدار الساعة، ويمكنك طلب الإسعاف عبر زر الطوارئ الأحمر."
+      }
+    }
+  ]
+}

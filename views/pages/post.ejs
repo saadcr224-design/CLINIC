@@ -1,0 +1,32 @@
+<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalWebPage', headline: L(post.title), description: L(post.excerpt), image: post.image, datePublished: post.date, inLanguage: lang,
+  author: author ? { '@type': 'Physician', name: author.name.en } : undefined, reviewedBy: author ? { '@type': 'Physician', name: author.name.en } : undefined,
+  publisher: { '@type': 'MedicalClinic', name: site.name.en } } }) %>
+<article>
+  <header class="post-hero">
+    <div class="container narrow">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="<%= url('/') %>"><%= t('common.home') %></a><span aria-hidden="true">/</span><a href="<%= url('/blog') %>"><%= t('nav.blog') %></a></nav>
+      <h1><%= L(post.title) %></h1>
+      <p class="post-meta">
+        <% if (author) { %><img src="<%= author.photo.replace(/w=\d+&h=\d+/, 'w=80&h=80') %>" alt="" width="40" height="40" class="avatar-img"><span><%= t('common.by') %> <a href="<%= url('/doctors/' + author.slug) %>"><%= L(author.name) %></a></span> · <% } %>
+        <time datetime="<%= post.date %>"><%= fmtDate(post.date) %></time> · <span><%= post.readMinutes %> <%= t('common.minRead') %></span>
+      </p>
+    </div>
+  </header>
+  <div class="container narrow">
+    <img class="post-cover" src="<%= post.image %>" srcset="<%= srcset(post.image, [600, 1000, 1200]) %>" sizes="(max-width: 860px) 100vw, 800px" alt="" width="800" height="420" fetchpriority="high">
+    <div class="prose"><%- L(post.body) %></div>
+    <p class="notice"><svg class="ic"><use href="#i-shield"/></svg><%= t('blog.disclaimer') %></p>
+    <div class="share">
+      <a class="btn btn-outline" href="https://wa.me/?text=<%= encodeURIComponent(L(post.title) + ' ' + site.url + canonicalPath) %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg><%= t('common.whatsapp') %></a>
+      <a class="btn btn-outline" href="https://x.com/intent/tweet?url=<%= encodeURIComponent(site.url + canonicalPath) %>&text=<%= encodeURIComponent(L(post.title)) %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-x"/></svg>X</a>
+      <a class="btn btn-primary" href="<%= url('/book?dept=' + post.category) %>"><svg class="ic"><use href="#i-calendar"/></svg><%= t('nav.book') %></a>
+    </div>
+  </div>
+</article>
+<section class="section section-alt">
+  <div class="container">
+    <h2><%= t('blog.related') %></h2>
+    <div class="grid grid-3"><% related.forEach(p => { %><%- include('../partials/post-card', { p }) %><% }) %></div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

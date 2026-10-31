@@ -147,3 +147,7 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Runtime patient data, audit logs and secrets - never commit
+data/
+.env

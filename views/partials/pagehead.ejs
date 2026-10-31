@@ -1,0 +1,12 @@
+<section class="page-hero<%= locals.image ? ' has-image' : '' %>">
+  <% if (locals.image) { %><img class="page-hero-bg" src="<%= image %>" srcset="<%= srcset(image, [800, 1400, 1800]) %>" sizes="100vw" alt="" fetchpriority="high"><% } %>
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="<%= url('/') %>"><%= t('common.home') %></a>
+      <% (locals.crumbs || []).forEach(c => { %><span aria-hidden="true">/</span><a href="<%= c[0] %>"><%= c[1] %></a><% }) %>
+      <span aria-hidden="true">/</span><span aria-current="page"><%= heading %></span>
+    </nav>
+    <h1><%= heading %></h1>
+    <% if (locals.lead) { %><p class="lead"><%= lead %></p><% } %>
+  </div>
+</section>

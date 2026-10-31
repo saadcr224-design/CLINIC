@@ -1,0 +1,55 @@
+{
+  "name": { "en": "Wahat Medical Center", "ar": "مركز الواحة الطبي" },
+  "tagline": { "en": "Compassionate care, world-class medicine", "ar": "رعاية بإنسانية وطب بمعايير عالمية" },
+  "url": "https://www.example-clinic.sa",
+  "phone": "+966110000000",
+  "phoneDisplay": "+966 11 000 0000",
+  "emergencyPhone": "+966110000999",
+  "emergencyPhoneDisplay": "+966 11 000 0999",
+  "nationalEmergency": "997",
+  "whatsapp": "966500000000",
+  "email": "care@example-clinic.sa",
+  "address": {
+    "en": "King Fahd Road, Al Olaya District, Riyadh 12214, Saudi Arabia",
+    "ar": "طريق الملك فهد، حي العليا، الرياض 12214، المملكة العربية السعودية"
+  },
+  "geo": { "lat": 24.7136, "lng": 46.6753 },
+  "mapEmbed": "https://www.google.com/maps?q=24.7136,46.6753&z=15&output=embed",
+  "mapDirections": "https://www.google.com/maps/dir/?api=1&destination=24.7136,46.6753",
+  "hours": [
+    { "days": { "en": "Saturday – Thursday", "ar": "السبت – الخميس" }, "time": { "en": "8:00 AM – 10:00 PM", "ar": "8:00 ص – 10:00 م" } },
+    { "days": { "en": "Friday", "ar": "الجمعة" }, "time": { "en": "4:00 PM – 10:00 PM", "ar": "4:00 م – 10:00 م" } },
+    { "days": { "en": "Emergency", "ar": "الطوارئ" }, "time": { "en": "24 hours, 7 days", "ar": "24 ساعة طوال الأسبوع" } }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/",
+    "x": "https://x.com/",
+    "linkedin": "https://linkedin.com/",
+    "youtube": "https://youtube.com/",
+    "snapchat": "https://snapchat.com/"
+  },
+  "accreditations": [
+    { "code": "CBAHI", "label": { "en": "CBAHI Accredited", "ar": "معتمد من سباهي" } },
+    { "code": "JCI", "label": { "en": "JCI Gold Seal", "ar": "اعتماد JCI" } },
+    { "code": "MOH", "label": { "en": "MOH Licensed", "ar": "مرخص من وزارة الصحة" } },
+    { "code": "ISO", "label": { "en": "ISO 9001:2015", "ar": "أيزو 9001:2015" } }
+  ],
+  "stats": [
+    { "value": "25+", "label": { "en": "Years of care", "ar": "عاماً من الرعاية" } },
+    { "value": "60+", "label": { "en": "Specialist doctors", "ar": "طبيباً استشارياً" } },
+    { "value": "120k", "label": { "en": "Patients a year", "ar": "مريض سنوياً" } },
+    { "value": "4.9", "label": { "en": "Average rating", "ar": "متوسط التقييم" } }
+  ],
+  "images": {
+    "hero": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=70",
+    "about": "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1400&q=70",
+    "facility1": "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=900&q=70",
+    "facility2": "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=900&q=70",
+    "facility3": "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=900&q=70",
+    "facility4": "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=900&q=70",
+    "team": "https://images.unsplash.com/photo-1551190822-a9333d879b1f?auto=format&fit=crop&w=1400&q=70",
+    "careers": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=1400&q=70",
+    "contact": "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=1400&q=70",
+    "booking": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=70"
+  }
+}

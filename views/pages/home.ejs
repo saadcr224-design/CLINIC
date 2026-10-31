@@ -1,0 +1,150 @@
+<%- include('../partials/header') %>
+<section class="hero">
+  <img class="hero-bg" src="<%= site.images.hero %>" srcset="<%= srcset(site.images.hero, [800, 1200, 1800]) %>" sizes="100vw" alt="<%= lang === 'ar' ? 'ممر المركز الطبي' : 'Bright corridor inside the medical center' %>" fetchpriority="high">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="pill"><span class="dot"></span><%= t('home.badge') %></span>
+      <h1><%= t('home.heroTitle') %></h1>
+      <p class="lead"><%= t('home.heroText') %></p>
+      <form class="hero-search" action="<%= url('/doctors') %>" method="get" role="search">
+        <label class="sr-only" for="hero-q"><%= t('home.quickSearch') %></label>
+        <svg class="ic"><use href="#i-search"/></svg>
+        <input id="hero-q" name="q" placeholder="<%= t('home.quickSearch') %>">
+        <select name="dept" aria-label="<%= t('doctors.filterSpecialty') %>">
+          <option value=""><%= t('doctors.filterSpecialty') %></option>
+          <% departments.forEach(d => { %><option value="<%= d.slug %>"><%= L(d.name) %></option><% }) %>
+        </select>
+        <button class="btn btn-primary" type="submit"><%= t('home.search') %></button>
+      </form>
+      <div class="hero-actions">
+        <a class="btn btn-accent btn-lg" href="<%= url('/book') %>"><svg class="ic"><use href="#i-calendar"/></svg><%= t('nav.book') %></a>
+        <a class="btn btn-ghost btn-lg" href="https://wa.me/<%= site.whatsapp %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg><%= t('common.whatsapp') %></a>
+      </div>
+    </div>
+    <aside class="hero-card" aria-label="<%= t('emergency.title') %>">
+      <div class="hero-card-row emergency">
+        <svg class="ic"><use href="#i-ambulance"/></svg>
+        <div><strong><%= t('contact.emergencyLine') %></strong><a href="tel:<%= site.emergencyPhone %>" dir="ltr"><%= site.emergencyPhoneDisplay %></a></div>
+      </div>
+      <% site.hours.slice(0, 2).forEach(h => { %>
+      <div class="hero-card-row"><svg class="ic"><use href="#i-clock"/></svg><div><strong><%= L(h.days) %></strong><span><%= L(h.time) %></span></div></div>
+      <% }) %>
+      <div class="hero-card-row"><svg class="ic"><use href="#i-pin"/></svg><div><strong><%= t('contact.address') %></strong><a href="<%= site.mapDirections %>" target="_blank" rel="noopener"><%= t('common.directions') %></a></div></div>
+    </aside>
+  </div>
+  <div class="container">
+    <ul class="stats">
+      <% site.stats.forEach(s => { %><li><strong><%= s.value %></strong><span><%= L(s.label) %></span></li><% }) %>
+    </ul>
+  </div>
+</section>
+
+<section class="trust" aria-label="<%= t('home.trust') %>">
+  <div class="container trust-inner">
+    <span class="trust-label"><%= t('home.trust') %></span>
+    <ul>
+      <% site.accreditations.forEach(a => { %><li><svg class="ic"><use href="#i-award"/></svg><span><strong><%= a.code %></strong><small><%= L(a.label) %></small></span></li><% }) %>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><h2><%= t('home.servicesTitle') %></h2><p><%= t('home.servicesText') %></p></div>
+      <a class="link-arrow" href="<%= url('/departments') %>"><%= t('common.viewAll') %><svg class="ic flip"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="grid grid-4">
+      <% departments.forEach(d => { %>
+      <a class="service-card" href="<%= url('/departments/' + d.slug) %>">
+        <span class="service-icon"><svg class="ic"><use href="#i-<%= d.icon %>"/></svg></span>
+        <h3><%= L(d.name) %></h3>
+        <p><%= L(d.summary) %></p>
+        <span class="link-arrow"><%= t('common.learnMore') %><svg class="ic flip"><use href="#i-arrow"/></svg></span>
+      </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container split">
+    <div class="split-media">
+      <img src="<%= site.images.team %>" srcset="<%= srcset(site.images.team, [600, 1000, 1400]) %>" sizes="(max-width: 900px) 100vw, 50vw" alt="<%= lang === 'ar' ? 'فريقنا الطبي' : 'Our medical team' %>" loading="lazy" width="700" height="520">
+      <div class="float-badge"><svg class="ic"><use href="#i-star"/></svg><strong><%= site.stats[3].value %></strong><span><%= L(site.stats[3].label) %></span></div>
+    </div>
+    <div>
+      <h2><%= t('home.whyTitle') %></h2>
+      <ul class="features">
+        <% [['award', 1], ['calendar', 2], ['shield', 3], ['card', 4]].forEach(([ic, n]) => { %>
+        <li><span class="feature-icon"><svg class="ic"><use href="#i-<%= ic %>"/></svg></span><div><h3><%= t('home.why' + n + '.t') %></h3><p><%= t('home.why' + n + '.d') %></p></div></li>
+        <% }) %>
+      </ul>
+      <a class="btn btn-primary" href="<%= url('/about') %>"><%= t('nav.about') %></a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><h2><%= t('home.doctorsTitle') %></h2></div>
+      <a class="link-arrow" href="<%= url('/doctors') %>"><%= t('common.viewAll') %><svg class="ic flip"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="grid grid-4">
+      <% doctors.forEach(d => { %><%- include('../partials/doctor-card', { d }) %><% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <div><h2><%= t('home.testimonialsTitle') %></h2></div>
+      <a class="link-arrow" href="<%= url('/testimonials') %>"><%= t('common.viewAll') %><svg class="ic flip"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="grid grid-3">
+      <% testimonials.forEach(r => { %><%- include('../partials/review-card', { r }) %><% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div><h2><%= t('home.blogTitle') %></h2></div>
+      <a class="link-arrow" href="<%= url('/blog') %>"><%= t('common.viewAll') %><svg class="ic flip"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="grid grid-3">
+      <% posts.forEach(p => { %><%- include('../partials/post-card', { p }) %><% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div><h2><%= t('home.ctaTitle') %></h2><p><%= t('home.ctaText') %></p></div>
+    <div class="cta-actions">
+      <a class="btn btn-accent btn-lg" href="<%= url('/book') %>"><%= t('nav.book') %></a>
+      <a class="btn btn-ghost btn-lg" href="tel:<%= site.phone %>"><svg class="ic"><use href="#i-phone"/></svg><span dir="ltr"><%= site.phoneDisplay %></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section map-section">
+  <div class="container split">
+    <div>
+      <h2><%= t('nav.contact') %></h2>
+      <ul class="contact-list">
+        <li><svg class="ic"><use href="#i-pin"/></svg><div><strong><%= t('contact.address') %></strong><p><%= L(site.address) %></p></div></li>
+        <li><svg class="ic"><use href="#i-phone"/></svg><div><strong><%= t('common.call') %></strong><p><a href="tel:<%= site.phone %>" dir="ltr"><%= site.phoneDisplay %></a></p></div></li>
+        <li><svg class="ic"><use href="#i-clock"/></svg><div><strong><%= t('contact.hours') %></strong><% site.hours.forEach(h => { %><p><%= L(h.days) %>: <%= L(h.time) %></p><% }) %></div></li>
+      </ul>
+      <a class="btn btn-outline" href="<%= site.mapDirections %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-pin"/></svg><%= t('common.directions') %></a>
+    </div>
+    <div class="map-frame">
+      <iframe title="<%= L(site.name) %> map" src="<%= site.mapEmbed %>&hl=<%= lang %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

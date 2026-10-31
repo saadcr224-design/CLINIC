@@ -1,0 +1,158 @@
+# Decap CMS configuration: lets non-developers edit doctors, departments, articles, FAQs,
+# reviews and jobs. Changes are committed to the repo; the site picks them up automatically.
+# Set up GitHub OAuth for Decap: https://decapcms.org/docs/github-backend/
+backend:
+  name: github
+  repo: saadcr224-design/CLINIC
+  branch: main
+  # base_url: https://your-oauth-proxy.example.com   # required when not hosted on Netlify
+
+# Editorial workflow: drafts → review → publish, so medical content is checked before going live.
+publish_mode: editorial_workflow
+media_folder: public/img/uploads
+public_folder: /img/uploads
+
+# Reusable bilingual field definitions
+_en_ar: &en_ar
+  widget: object
+  collapsed: false
+  fields:
+    - { name: en, label: English, widget: string }
+    - { name: ar, label: Arabic, widget: string }
+_en_ar_text: &en_ar_text
+  widget: object
+  collapsed: false
+  fields:
+    - { name: en, label: English, widget: text }
+    - { name: ar, label: Arabic, widget: text }
+_days: &days
+  name: days
+  label: Clinic days
+  widget: select
+  multiple: true
+  options: [sat, sun, mon, tue, wed, thu, fri]
+
+collections:
+  - name: clinic
+    label: Clinic
+    files:
+      - name: doctors
+        label: Doctors
+        file: content/doctors.json
+        format: json
+        fields:
+          - name: items
+            label: Doctors
+            widget: list
+            summary: "{{fields.name.en}}"
+            fields:
+              - { name: slug, label: URL slug, widget: string, pattern: ['^[a-z0-9-]+$', 'lowercase letters, numbers and dashes'] }
+              - { name: department, label: Department slug, widget: string }
+              - { name: name, label: Name, <<: *en_ar }
+              - { name: title, label: Title, <<: *en_ar }
+              - { name: qualifications, label: Qualifications, <<: *en_ar }
+              - { name: experience, label: Years of experience, widget: number }
+              - { name: languages, label: Languages, widget: list }
+              - { name: gender, label: Gender, widget: select, options: [male, female] }
+              - { name: rating, label: Rating, widget: number, value_type: float, min: 1, max: 5 }
+              - { name: reviews, label: Review count, widget: number }
+              - *days
+              - { name: bio, label: Bio, <<: *en_ar_text }
+              - { name: photo, label: Photo, widget: image }
+              - { name: video, label: Video intro URL (YouTube nocookie embed), widget: string, required: false }
+      - name: departments
+        label: Departments
+        file: content/departments.json
+        format: json
+        fields:
+          - name: items
+            label: Departments
+            widget: list
+            summary: "{{fields.name.en}}"
+            fields:
+              - { name: slug, label: URL slug, widget: string }
+              - { name: icon, label: Icon, widget: select, options: [heart, tooth, child, bone, skin, women, stethoscope, eye] }
+              - { name: name, label: Name, <<: *en_ar }
+              - { name: summary, label: Summary, <<: *en_ar_text }
+              - { name: description, label: Description, <<: *en_ar_text }
+              - name: services
+                label: Services
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: list }
+                  - { name: ar, label: Arabic, widget: list }
+              - { name: image, label: Image, widget: image }
+      - name: posts
+        label: Health articles
+        file: content/posts.json
+        format: json
+        fields:
+          - name: items
+            label: Articles
+            widget: list
+            summary: "{{fields.date}} · {{fields.title.en}}"
+            fields:
+              - { name: slug, label: URL slug, widget: string }
+              - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
+              - { name: category, label: Department slug, widget: string }
+              - { name: readMinutes, label: Minutes to read, widget: number }
+              - { name: author, label: Author (doctor slug), widget: string }
+              - { name: title, label: Title, <<: *en_ar }
+              - { name: excerpt, label: Excerpt, <<: *en_ar_text }
+              - name: body
+                label: Body (HTML)
+                widget: object
+                fields:
+                  - { name: en, label: English, widget: text }
+                  - { name: ar, label: Arabic, widget: text }
+              - { name: image, label: Cover image, widget: image }
+      - name: testimonials
+        label: Patient reviews
+        file: content/testimonials.json
+        format: json
+        fields:
+          - name: items
+            label: Reviews
+            widget: list
+            summary: "{{fields.name.en}} · {{fields.rating}}★"
+            fields:
+              - { name: name, label: Patient name (initial only), <<: *en_ar }
+              - { name: rating, label: Rating, widget: number, min: 1, max: 5 }
+              - { name: department, label: Department slug, widget: string }
+              - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
+              - { name: text, label: Review, <<: *en_ar_text }
+      - name: faqs
+        label: FAQ
+        file: content/faqs.json
+        format: json
+        fields:
+          - name: items
+            label: Questions
+            widget: list
+            summary: "{{fields.q.en}}"
+            fields:
+              - { name: category, label: Category, widget: select, options: [appointments, insurance, general, privacy, emergency] }
+              - { name: q, label: Question, <<: *en_ar }
+              - { name: a, label: Answer, <<: *en_ar_text }
+      - name: jobs
+        label: Careers
+        file: content/jobs.json
+        format: json
+        fields:
+          - name: items
+            label: Open positions
+            widget: list
+            summary: "{{fields.title.en}}"
+            fields:
+              - { name: id, label: Job ID, widget: string }
+              - { name: department, label: Department slug (or "general"), widget: string }
+              - { name: type, label: Type, <<: *en_ar }
+              - { name: title, label: Title, <<: *en_ar }
+              - { name: summary, label: Summary, <<: *en_ar_text }
+      - name: insurance
+        label: Insurance & payment
+        file: content/insurance.json
+        format: json
+        fields:
+          - { name: providers, label: Insurance providers, widget: list }
+          - { name: payments, label: Payment methods, widget: list }

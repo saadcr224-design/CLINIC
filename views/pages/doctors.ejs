@@ -1,0 +1,45 @@
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('doctors.title'), lead: t('doctors.lead') }) %>
+<section class="section">
+  <div class="container">
+    <form class="filters" method="get" action="<%= url('/doctors') %>" role="search">
+      <div class="field">
+        <label for="f-q"><%= t('home.search') %></label>
+        <input id="f-q" name="q" value="<%= filters.q %>" placeholder="<%= t('doctors.searchPlaceholder') %>">
+      </div>
+      <div class="field">
+        <label for="f-dept"><%= t('doctors.filterSpecialty') %></label>
+        <select id="f-dept" name="dept" class="js-autosubmit">
+          <option value=""><%= t('doctors.any') %></option>
+          <% departments.forEach(d => { %><option value="<%= d.slug %>"<%= filters.dept === d.slug ? ' selected' : '' %>><%= L(d.name) %></option><% }) %>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-day"><%= t('doctors.filterDay') %></label>
+        <select id="f-day" name="day" class="js-autosubmit">
+          <option value=""><%= t('doctors.any') %></option>
+          <% ['sat','sun','mon','tue','wed','thu'].forEach(k => { %><option value="<%= k %>"<%= filters.day === k ? ' selected' : '' %>><%= t('day.' + k) %></option><% }) %>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-gender"><%= t('doctors.filterGender') %></label>
+        <select id="f-gender" name="gender" class="js-autosubmit">
+          <option value=""><%= t('doctors.any') %></option>
+          <option value="male"<%= filters.gender === 'male' ? ' selected' : '' %>><%= t('doctors.male') %></option>
+          <option value="female"<%= filters.gender === 'female' ? ' selected' : '' %>><%= t('doctors.female') %></option>
+        </select>
+      </div>
+      <div class="filter-actions">
+        <button class="btn btn-primary" type="submit"><%= t('doctors.apply') %></button>
+        <a class="btn btn-outline" href="<%= url('/doctors') %>"><%= t('doctors.reset') %></a>
+      </div>
+    </form>
+    <p class="results-count" role="status"><strong><%= doctors.length %></strong> <%= t('doctors.results') %></p>
+    <% if (doctors.length) { %>
+      <div class="grid grid-4"><% doctors.forEach(d => { %><%- include('../partials/doctor-card', { d }) %><% }) %></div>
+    <% } else { %>
+      <p class="empty"><%= t('doctors.none') %></p>
+    <% } %>
+  </div>
+</section>
+<%- include('../partials/footer') %>
