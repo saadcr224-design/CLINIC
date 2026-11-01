@@ -1,6 +1,9 @@
 'use strict';
 const crypto = require('crypto');
 const rateLimit = require('express-rate-limit');
+const { sessionSecret } = require('./config');
+
+const captchaHash = (answer, nonce) => crypto.createHmac('sha256', sessionSecret).update(`${nonce}:${answer}`).digest('base64url');
 
 // ---------- CSRF (synchronizer token stored in the session) ----------
 function csrf(req, res, next) {
@@ -21,7 +24,9 @@ function csrf(req, res, next) {
 function newCaptcha(req) {
   const a = crypto.randomInt(1, 10);
   const b = crypto.randomInt(1, 10);
-  req.session.captcha = String(a + b);
+  // The session lives in a cookie the visitor can read, so store a keyed hash of the answer.
+  const nonce = crypto.randomBytes(8).toString('hex');
+  req.session.captcha = { nonce, hash: captchaHash(a + b, nonce) };
   return `${a} + ${b}`;
 }
 
@@ -30,7 +35,7 @@ function checkBot(req) {
   if (body.website) return 'bot'; // honeypot field, hidden from humans
   const expected = req.session.captcha;
   delete req.session.captcha; // single use
-  if (!expected || String(body.captcha || '').trim() !== expected) return 'captcha';
+  if (!expected || !expected.nonce || captchaHash(String(body.captcha || '').trim(), expected.nonce) !== expected.hash) return 'captcha';
   return null;
 }
 

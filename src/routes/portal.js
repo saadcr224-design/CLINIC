@@ -45,7 +45,8 @@ router.post('/portal/login', loginLimiter, express.urlencoded({ extended: false 
 
 router.post('/portal/logout', (req, res) => {
   audit.log(req, 'auth.logout');
-  req.session.destroy(() => res.redirect(res.locals.url('/')));
+  req.session = null;
+  res.redirect('/');
 });
 
 router.get('/portal', (req, res, next) => auth.requireAuth(['patient'], res.locals.url('/portal/login'))(req, res, next), (req, res) => {

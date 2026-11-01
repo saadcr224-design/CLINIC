@@ -1,4 +1,5 @@
 'use strict';
+const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const store = require('./store');
 const audit = require('./audit');
@@ -40,15 +41,14 @@ async function verify(email, password) {
 }
 
 function login(req, user) {
-  return new Promise((resolve, reject) => {
-    // New session id on login prevents session fixation.
-    req.session.regenerate((err) => {
-      if (err) return reject(err);
-      req.session.user = { id: user.id, email: user.email, name: user.name, role: user.role, doctorSlug: user.doctorSlug };
-      audit.log(req, 'auth.login', user.email);
-      resolve();
-    });
-  });
+  // Replace the whole session on login (new CSRF token) to prevent session fixation.
+  req.session = {
+    csrf: crypto.randomBytes(24).toString('hex'),
+    seen: Math.floor(Date.now() / 60000),
+    user: { id: user.id, email: user.email, name: user.name, role: user.role, doctorSlug: user.doctorSlug },
+  };
+  audit.log(req, 'auth.login', user.email);
+  return Promise.resolve();
 }
 
 function requireAuth(roles, loginPath) {

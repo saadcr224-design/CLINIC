@@ -195,6 +195,14 @@ router.post('/chat', limiter(1, 20), (req, res) => {
   res.json({ ok: true, ...chatbot.reply(text) });
 });
 
+// Scheduled automation (reminders, review requests). Vercel Cron calls this with
+// "Authorization: Bearer $CRON_SECRET"; on a normal server the built-in timer runs instead.
+router.get('/cron/automation', (req, res) => {
+  const secret = process.env.CRON_SECRET;
+  if (!secret || req.get('authorization') !== `Bearer ${secret}`) return fail(res, 401, 'Unauthorized');
+  res.json({ ok: true, sent: require('../automation').run() });
+});
+
 router.get('/health', (req, res) => res.json({ ok: true, time: riyadhNow() }));
 
 module.exports = router;

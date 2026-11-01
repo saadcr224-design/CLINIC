@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const express = require('express');
 const helmet = require('helmet');
 const compression = require('compression');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 
 const config = require('./src/config');
 const content = require('./src/content');
@@ -72,18 +72,25 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: config.isProd ? '7d' : 0, index: ['index.html'] }));
 
 // ---------- Sessions ----------
+// Signed cookie sessions: they hold only small values (CSRF token, CAPTCHA hash, signed-in
+// user) and work across serverless instances (Vercel) and multiple servers without a shared store.
 app.use(
-  session({
+  cookieSession({
     name: config.isProd ? '__Host-sid' : 'sid',
-    secret: config.sessionSecret,
-    resave: false,
-    saveUninitialized: false,
-    rolling: true, // idle timeout: each request extends the session
-    cookie: { httpOnly: true, sameSite: 'lax', secure: config.isProd, maxAge: config.sessionIdleMinutes * 60 * 1000 },
-    // NOTE: the default MemoryStore is for single-instance deployments only. Use a shared
-    // store (e.g. connect-redis) when running more than one instance.
+    keys: [config.sessionSecret],
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: config.isProd,
+    maxAge: 12 * 60 * 60 * 1000,
   })
 );
+// Idle timeout: a signed-in user is signed out after SESSION_IDLE_MINUTES without a request.
+app.use((req, res, next) => {
+  const minute = Math.floor(Date.now() / 60000);
+  if (req.session.user && minute - (req.session.seen || 0) > config.sessionIdleMinutes) delete req.session.user;
+  if (req.session.seen !== minute) req.session.seen = minute; // refreshes the cookie at most once a minute
+  next();
+});
 
 app.use(express.json({ limit: '20kb' }));
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
@@ -134,4 +141,7 @@ async function start() {
 
 if (require.main === module) start();
 
-module.exports = { app, start };
+// Export the app itself so hosts that import it directly (Vercel, tests) can use it.
+module.exports = app;
+module.exports.app = app;
+module.exports.start = start;

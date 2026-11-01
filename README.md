@@ -81,7 +81,7 @@ one CSS and one small JS file with no frameworks, and long cache headers in prod
 |---|---|
 | Encryption in transit | HTTPS enforced via HSTS (preload) and `upgrade-insecure-requests`. Terminate TLS at your load balancer/WAF. |
 | Encryption at rest | All patient records (appointments, messages, users, ambulance requests…) are stored AES-256-GCM encrypted (`src/crypto.js`, `src/store.js`). The key comes from `DATA_KEY`. |
-| Access control | Role-based: `patient`, `doctor` (own patients only), `reception`, `admin` (`src/auth.js`). bcrypt password hashes, session regeneration on login, 15-minute idle timeout, `__Host-` HttpOnly/Secure/SameSite cookies. |
+| Access control | Role-based: `patient`, `doctor` (own patients only), `reception`, `admin` (`src/auth.js`). bcrypt password hashes, a fresh session on login, 15-minute idle timeout, signed `__Host-` HttpOnly/Secure/SameSite cookie sessions (no server-side session store needed). |
 | Audit logging | Every login, failure, denied access, record view and change is written to a SHA-256 hash-chained log (`src/audit.js`). The admin view verifies the chain and flags tampering. |
 | Forms | CSRF tokens, CAPTCHA + honeypot, server-side validation (Saudi ID/Iqama, phone, email…), body size limits, per-IP rate limits, login throttling. |
 | Headers | Strict CSP with nonces, `frame-ancestors 'none'`, nosniff, Referrer-Policy, Permissions-Policy, no `X-Powered-By`. |
@@ -91,7 +91,7 @@ one CSS and one small JS file with no frameworks, and long cache headers in prod
 - [ ] Put the site behind a **WAF** (Cloudflare, AWS WAF, or ModSecurity + OWASP CRS) and terminate TLS there.
 - [ ] Set `SESSION_SECRET` and `DATA_KEY` from a secret manager/KMS. Back up the key separately from the data.
 - [ ] Host patient data **inside the Kingdom** (PDPL data residency). Move `src/store.js` to a managed database
-      (PostgreSQL with encryption) and sessions to Redis before running more than one instance.
+      (PostgreSQL with encryption) before running more than one instance.
 - [ ] Take encrypted, off-site daily backups of `DATA_DIR` and test that restores work.
 - [ ] Ship `audit.log` to your SIEM. Schedule vulnerability scans (e.g. OWASP ZAP) and an annual penetration test.
 - [ ] Turn on MFA for staff (e.g. through your identity provider in front of `/admin`).
@@ -127,6 +127,28 @@ views/               EJS templates (pages, partials, portal, admin, legal)
 public/              CSS, JS, font, images, Decap CMS (/cms)
 test/                node:test suite
 ```
+
+## Deploy to Vercel
+The repo is ready for Vercel. `vercel.json` serves `public/` from the CDN and sends every other
+request to the Express app through `api/index.js`.
+
+1. In Vercel → **Settings → Git**, make sure the **Production Branch** is the branch that contains this
+   code (normally `main`).
+2. In **Settings → Environment Variables**, add `SESSION_SECRET`, `DATA_KEY` and `CRON_SECRET`.
+   Generate each one with
+   `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
+   Without them the site still runs, but sign-ins reset whenever Vercel starts a new instance.
+3. Redeploy.
+
+**Important: Vercel has no permanent disk.** Bookings, messages and the audit log are written to `/tmp`,
+which Vercel clears whenever it starts a new instance. That's fine for showing the website, but before
+real patients book you need one of these:
+- host on a server with a persistent disk (Render, Railway, Fly.io, a VPS, or the Docker image below), where
+  everything works as-is; or
+- connect a database (for example Neon/Vercel Postgres) in place of `src/store.js`.
+
+Vercel's free (Hobby) plan runs cron jobs once a day, so reminders go out daily at 08:00 Riyadh time.
+A long-running server sends them every 10 minutes instead.
 
 ## Docker
 ```bash

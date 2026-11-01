@@ -4,13 +4,25 @@ const fs = require('fs');
 const path = require('path');
 
 const isProd = process.env.NODE_ENV === 'production';
-const dataDir = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
+const onVercel = !!process.env.VERCEL;
+// Vercel's filesystem is read-only except /tmp, which is temporary (cleared between cold starts).
+const dataDir = process.env.DATA_DIR || (onVercel ? '/tmp/clinic-data' : path.join(__dirname, '..', 'data'));
 fs.mkdirSync(dataDir, { recursive: true, mode: 0o700 });
 
 // In development, generate secrets once and keep them in data/ (git-ignored) so
 // encrypted data survives restarts. In production every secret must come from the environment.
+const ephemeral = {};
 function secret(name) {
   if (process.env[name]) return process.env[name];
+  if (onVercel) {
+    // Keep the site up instead of crashing, but sign-ins reset on every cold start and
+    // nothing persists. Set the variable in Vercel → Settings → Environment Variables.
+    if (!ephemeral[name]) {
+      ephemeral[name] = crypto.randomBytes(32).toString('hex');
+      console.error(`[config] ${name} is not set on Vercel; using a temporary value. Set it in the project's environment variables.`);
+    }
+    return ephemeral[name];
+  }
   if (isProd) throw new Error(`${name} must be set in production`);
   const devFile = path.join(dataDir, '.dev-secrets.json');
   let dev = {};
@@ -25,6 +37,7 @@ function secret(name) {
 
 module.exports = {
   isProd,
+  onVercel,
   dataDir,
   port: process.env.PORT !== undefined ? Number(process.env.PORT) : 3000,
   root: path.join(__dirname, '..'),

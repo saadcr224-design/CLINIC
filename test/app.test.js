@@ -26,11 +26,15 @@ after(() => server.close());
 
 // Minimal cookie-keeping browser.
 function client() {
-  let cookie = '';
+  const jar = new Map();
   return async function req(p, opts = {}) {
+    const cookie = [...jar].map(([k, v]) => `${k}=${v}`).join('; ');
     const res = await fetch(base + p, { redirect: 'manual', ...opts, headers: { ...(opts.headers || {}), cookie } });
-    const set = res.headers.get('set-cookie');
-    if (set) cookie = set.split(';')[0];
+    for (const c of res.headers.getSetCookie()) {
+      const [pair] = c.split(';');
+      const i = pair.indexOf('=');
+      jar.set(pair.slice(0, i), pair.slice(i + 1));
+    }
     return res;
   };
 }
