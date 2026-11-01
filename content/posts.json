@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "slug": "know-your-blood-pressure-numbers",
+      "date": "2026-10-12",
+      "category": "cardiology",
+      "readMinutes": 5,
+      "author": "dr-khalid-al-harbi",
+      "title": "Know your numbers: a simple guide to blood pressure",
+      "excerpt": "High blood pressure rarely causes symptoms, which is why it is called the silent killer. Here is how to read your numbers and when to see a doctor.",
+      "body": "<p>Blood pressure is written as two numbers. The top number (systolic) is the pressure when your heart beats; the bottom number (diastolic) is the pressure between beats.</p><h2>What the numbers mean</h2><ul><li><strong>Below 120/80</strong> – normal.</li><li><strong>120–129 / below 80</strong> – elevated; lifestyle changes help.</li><li><strong>130/80 or higher</strong> – high blood pressure; talk to your doctor.</li><li><strong>180/120 or higher</strong> – seek urgent medical care.</li></ul><h2>Measuring at home</h2><p>Sit quietly for five minutes, keep your arm supported at heart level, and avoid caffeine or exercise for 30 minutes beforehand. Take two readings a minute apart and record both.</p><h2>Small changes, big impact</h2><p>Reducing salt, walking 30 minutes a day, keeping a healthy weight and not smoking can lower blood pressure by 5–10 points – often as much as one medication.</p><p><em>This article is for general education and is not a substitute for medical advice.</em></p>",
+      "image": "https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?auto=format&fit=crop&w=1200&q=70"
+    },
+    {
+      "slug": "staying-healthy-while-fasting",
+      "date": "2026-09-20",
+      "category": "internal-medicine",
+      "readMinutes": 6,
+      "author": "dr-ahmed-siddiqui",
+      "title": "Fasting safely with diabetes: what you need to know",
+      "excerpt": "Many people with diabetes can fast safely with the right preparation. Plan ahead with your doctor at least six weeks before.",
+      "body": "<p>Fasting changes when you eat and drink, which affects blood sugar and how your medicines work. A pre-fasting assessment lets your doctor adjust doses and timing.</p><h2>Before you fast</h2><ul><li>Book a review 6–8 weeks ahead.</li><li>Ask whether your medicines need new doses or timing.</li><li>Learn the warning signs of low and high blood sugar.</li></ul><h2>During the fast</h2><p>Check your blood sugar regularly – checking does not break the fast. Break your fast immediately if your sugar falls below 70 mg/dL or rises above 300 mg/dL, or if you feel unwell.</p><h2>Suhoor and iftar</h2><p>Eat suhoor as late as possible, choose slow-release carbohydrates, and drink plenty of water between iftar and suhoor.</p><p><em>This article is for general education and is not a substitute for medical advice.</em></p>",
+      "image": "https://images.unsplash.com/photo-1593491205049-7f032d28cf5c?auto=format&fit=crop&w=1200&q=70"
+    },
+    {
+      "slug": "childhood-vaccination-schedule",
+      "date": "2026-08-25",
+      "category": "pediatrics",
+      "readMinutes": 4,
+      "author": "dr-noura-al-otaibi",
+      "title": "Your child's vaccination schedule, explained",
+      "excerpt": "Vaccines protect children when they are most vulnerable. Here is what to expect at each visit and how to make shots less stressful.",
+      "body": "<p>The national immunisation schedule starts at birth and continues through school age. Keeping to schedule gives your child protection before they are most likely to be exposed.</p><h2>Making visits easier</h2><ul><li>Bring your child's vaccination card to every visit.</li><li>Hold your baby close and offer feeding during or after the shot.</li><li>For older children, be honest and calm – distraction works well.</li></ul><h2>After the vaccine</h2><p>Mild fever, fussiness or soreness for a day or two is common. Call us if your child has a fever above 39°C, is unusually drowsy, or if you are worried.</p><p><em>This article is for general education and is not a substitute for medical advice.</em></p>",
+      "image": "https://images.unsplash.com/photo-1632053002928-1919605ee6f7?auto=format&fit=crop&w=1200&q=70"
+    },
+    {
+      "slug": "protect-your-skin-from-the-sun",
+      "date": "2026-07-15",
+      "category": "dermatology",
+      "readMinutes": 3,
+      "author": "dr-lina-haddad",
+      "title": "Sun protection in a desert climate",
+      "excerpt": "Strong year-round sunshine raises the risk of pigmentation and skin damage. A dermatologist's daily routine for healthy skin.",
+      "body": "<p>UV exposure is the leading cause of pigmentation, premature ageing and skin cancer – and it reaches you even on hazy days.</p><h2>Daily routine</h2><ul><li>Use broad-spectrum SPF 50 every morning, including indoors near windows.</li><li>Reapply every two hours outdoors.</li><li>Choose tinted sunscreen if you have melasma – it also blocks visible light.</li></ul><h2>When to see a dermatologist</h2><p>Book a check if a mole changes shape, colour or size, bleeds, or looks different from your other moles.</p><p><em>This article is for general education and is not a substitute for medical advice.</em></p>",
+      "image": "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=1200&q=70"
+    }
+  ]
+}

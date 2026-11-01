@@ -1,0 +1,25 @@
+<%- include('_layout-top') %>
+<h1>Inbox</h1>
+<h2>🚑 Ambulance requests (<%= ambulance.length %>)</h2>
+<div class="table-wrap"><table class="table">
+  <thead><tr><th>Received</th><th>Phone</th><th>Name</th><th>Location</th></tr></thead>
+  <tbody><% ambulance.slice().reverse().forEach(r => { %><tr class="row-urgent"><td><%= r.createdAt.replace('T', ' ').slice(0, 16) %></td><td><a href="tel:<%= r.phone %>"><%= r.phone %></a></td><td><%= r.name %></td><td><% if (r.location) { %><a href="https://maps.google.com/?q=<%= r.location.lat %>,<%= r.location.lng %>" target="_blank" rel="noopener">Open map</a><% } else { %>—<% } %></td></tr><% }) %></tbody>
+</table></div>
+<h2>Contact messages (<%= messages.length %>)</h2>
+<div class="table-wrap"><table class="table">
+  <thead><tr><th>Received</th><th>From</th><th>Subject</th><th>Message</th></tr></thead>
+  <tbody><% messages.slice().reverse().forEach(m => { %><tr><td><%= m.createdAt.replace('T', ' ').slice(0, 16) %></td><td><%= m.name %><br><small><%= m.email %> <%= m.phone %></small></td><td><%= m.subject %></td><td class="pre"><%= m.message %></td></tr><% }) %></tbody>
+</table></div>
+<h2>Reviews awaiting moderation (<%= reviews.length %>)</h2>
+<div class="table-wrap"><table class="table">
+  <thead><tr><th>Received</th><th>Name</th><th>Rating</th><th>Review</th></tr></thead>
+  <tbody><% reviews.slice().reverse().forEach(r => { %><tr><td><%= r.createdAt.slice(0, 10) %></td><td><%= r.name %></td><td><%= r.rating %>★</td><td class="pre"><%= r.text %></td></tr><% }) %></tbody>
+</table></div>
+<p class="small muted">Approved reviews are published by adding them to <code>content/testimonials.json</code> through the CMS.</p>
+<h2>Job applications (<%= applications.length %>)</h2>
+<div class="table-wrap"><table class="table">
+  <thead><tr><th>Received</th><th>Role</th><th>Name</th><th>Contact</th><th>CV</th></tr></thead>
+  <tbody><% applications.slice().reverse().forEach(a => { %><tr><td><%= a.createdAt.slice(0, 10) %></td><td><%= a.job %></td><td><%= a.name %></td><td><%= a.email %><br><%= a.phone %></td><td><a href="<%= a.cv %>" target="_blank" rel="noopener noreferrer">Open</a></td></tr><% }) %></tbody>
+</table></div>
+<h2>Newsletter subscribers (<%= subscribers.length %>)</h2>
+<%- include('_layout-bottom') %>

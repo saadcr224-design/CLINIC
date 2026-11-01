@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('departments.title'), lead: t('departments.lead'), image: site.images.departments }) %>
+<section class="section">
+  <div class="container grid grid-2">
+    <% departments.forEach(d => { %>
+    <a class="dept-card" href="<%= url('/departments/' + d.slug) %>">
+      <img src="<%= d.image %>" srcset="<%= srcset(d.image, [400, 800]) %>" sizes="(max-width: 800px) 90vw, 45vw" alt="" loading="lazy" width="600" height="300">
+      <div class="dept-body">
+        <span class="service-icon"><svg class="ic"><use href="#i-<%= d.icon %>"/></svg></span>
+        <h2><%= L(d.name) %></h2>
+        <p><%= L(d.summary) %></p>
+        <span class="link-arrow"><%= t('common.learnMore') %><svg class="ic flip"><use href="#i-arrow"/></svg></span>
+      </div>
+    </a>
+    <% }) %>
+  </div>
+</section>
+<%- include('../partials/footer') %>

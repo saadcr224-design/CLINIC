@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "category": "appointments",
+      "q": "How do I book an appointment?",
+      "a": "Book online 24/7 from our Book Appointment page, call us, or message us on WhatsApp. You will receive a confirmation by SMS and email."
+    },
+    {
+      "category": "appointments",
+      "q": "Can I cancel or reschedule?",
+      "a": "Yes. Use the link in your confirmation message, the patient portal, or call reception at least 4 hours before your appointment."
+    },
+    {
+      "category": "appointments",
+      "q": "What should I bring to my first visit?",
+      "a": "Your National ID or Iqama, insurance card, a list of current medicines and any previous reports or scans. Please arrive 15 minutes early."
+    },
+    {
+      "category": "insurance",
+      "q": "Which insurance companies do you accept?",
+      "a": "We work with most major insurers in the Kingdom. See our Insurance & Payment page for the full list, or call us to verify your policy."
+    },
+    {
+      "category": "insurance",
+      "q": "Can I pay without insurance?",
+      "a": "Yes. We accept mada, Visa, Mastercard, Apple Pay, STC Pay and cash. Consultation fees are shown when you book."
+    },
+    {
+      "category": "general",
+      "q": "Do you have female doctors?",
+      "a": "Yes. Many of our departments have female consultants, and our obstetrics & gynecology team is all-female. You can filter doctors by gender."
+    },
+    {
+      "category": "general",
+      "q": "Is parking available?",
+      "a": "Free underground parking and valet service are available for patients and visitors."
+    },
+    {
+      "category": "privacy",
+      "q": "How do you protect my medical information?",
+      "a": "Your records are encrypted in transit and at rest, access is limited by role and every access is logged. We comply with the Saudi Personal Data Protection Law (PDPL). See our Data Protection notice."
+    },
+    {
+      "category": "emergency",
+      "q": "What should I do in an emergency?",
+      "a": "For life-threatening emergencies call 997 (Saudi Red Crescent) immediately. Our emergency department is open 24/7, and you can request our ambulance using the red Emergency button."
+    }
+  ]
+}

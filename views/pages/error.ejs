@@ -1,0 +1,10 @@
+<%- include('../partials/header', { noindex: true }) %>
+<%- include('../partials/pagehead', { heading: title, image: site.images.hero }) %>
+<section class="section error-page">
+  <div class="container narrow center">
+    <p class="error-code"><%= status %></p>
+    <p class="lead-dark"><%= message %></p>
+    <div class="btn-row center"><a class="btn btn-primary" href="<%= url('/') %>"><%= t('common.home') %></a><a class="btn btn-outline" href="<%= url('/contact') %>"><%= t('nav.contact') %></a></div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

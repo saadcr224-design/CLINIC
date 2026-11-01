@@ -1,0 +1,76 @@
+{
+  "name": "Wahat Medical Center",
+  "tagline": "Compassionate care, world-class medicine",
+  "url": "https://www.example-clinic.sa",
+  "phone": "+966110000000",
+  "phoneDisplay": "+966 11 000 0000",
+  "emergencyPhone": "+966110000999",
+  "emergencyPhoneDisplay": "+966 11 000 0999",
+  "nationalEmergency": "997",
+  "whatsapp": "966500000000",
+  "email": "care@example-clinic.sa",
+  "address": "King Fahd Road, Al Olaya District, Riyadh 12214, Saudi Arabia",
+  "geo": {
+    "lat": 24.7136,
+    "lng": 46.6753
+  },
+  "mapEmbed": "https://www.google.com/maps?q=24.7136,46.6753&z=15&output=embed",
+  "mapDirections": "https://www.google.com/maps/dir/?api=1&destination=24.7136,46.6753",
+  "hours": [
+    {
+      "days": "Saturday – Thursday",
+      "time": "8:00 AM – 10:00 PM"
+    },
+    {
+      "days": "Friday",
+      "time": "4:00 PM – 10:00 PM"
+    },
+    {
+      "days": "Emergency",
+      "time": "24 hours, 7 days"
+    }
+  ],
+  "social": {
+    "instagram": "https://instagram.com/",
+    "x": "https://x.com/",
+    "linkedin": "https://linkedin.com/",
+    "youtube": "https://youtube.com/",
+    "snapchat": "https://snapchat.com/"
+  },
+  "accreditations": [
+    {
+      "code": "CBAHI",
+      "label": "CBAHI Accredited"
+    },
+    {
+      "code": "JCI",
+      "label": "JCI Gold Seal"
+    },
+    {
+      "code": "MOH",
+      "label": "MOH Licensed"
+    },
+    {
+      "code": "ISO",
+      "label": "ISO 9001:2015"
+    }
+  ],
+  "stats": [
+    {
+      "value": "25+",
+      "label": "Years of care"
+    },
+    {
+      "value": "60+",
+      "label": "Specialist doctors"
+    },
+    {
+      "value": "120k",
+      "label": "Patients a year"
+    },
+    {
+      "value": "4.9",
+      "label": "Average rating"
+    }
+  ]
+}

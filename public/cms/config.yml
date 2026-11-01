@@ -1,0 +1,166 @@
+# Decap CMS configuration: lets non-developers edit doctors, departments, articles, FAQs,
+# reviews and jobs. Changes are committed to the repo; the site picks them up automatically.
+# Set up GitHub OAuth for Decap: https://decapcms.org/docs/github-backend/
+backend:
+  name: github
+  repo: saadcr224-design/CLINIC
+  branch: main
+  # base_url: https://your-oauth-proxy.example.com   # required when not hosted on Netlify
+
+# Editorial workflow: drafts → review → publish, so medical content is checked before going live.
+publish_mode: editorial_workflow
+media_folder: public/img/uploads
+public_folder: /img/uploads
+
+_days: &days
+  name: days
+  label: Clinic days
+  widget: select
+  multiple: true
+  options: [sat, sun, mon, tue, wed, thu, fri]
+
+collections:
+  - name: clinic
+    label: Clinic
+    files:
+      - name: photos
+        label: Photos (page backgrounds & backups)
+        file: content/photos.json
+        format: json
+        fields:
+          - name: images
+            label: Page background photos
+            widget: object
+            fields:
+              - { name: hero, label: hero, widget: image }
+              - { name: about, label: about, widget: image }
+              - { name: doctors, label: doctors, widget: image }
+              - { name: departments, label: departments, widget: image }
+              - { name: book, label: book, widget: image }
+              - { name: contact, label: contact, widget: image }
+              - { name: blog, label: blog, widget: image }
+              - { name: testimonials, label: testimonials, widget: image }
+              - { name: faq, label: faq, widget: image }
+              - { name: careers, label: careers, widget: image }
+              - { name: insurance, label: insurance, widget: image }
+              - { name: portal, label: portal, widget: image }
+              - { name: legal, label: legal, widget: image }
+              - { name: why, label: why, widget: image }
+              - { name: cta, label: cta, widget: image }
+              - { name: newsletter, label: newsletter, widget: image }
+              - { name: facility1, label: facility1, widget: image }
+              - { name: facility2, label: facility2, widget: image }
+              - { name: facility3, label: facility3, widget: image }
+              - { name: facility4, label: facility4, widget: image }
+          - { name: fallbackImages, label: Backup photos (used if a photo fails), widget: list }
+          - { name: fallbackPortraits, label: Backup doctor portraits, widget: list }
+      - name: doctors
+        label: Doctors
+        file: content/doctors.json
+        format: json
+        fields:
+          - name: items
+            label: Doctors
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: slug, label: URL slug, widget: string, pattern: ['^[a-z0-9-]+$', 'lowercase letters, numbers and dashes'] }
+              - { name: department, label: Department slug, widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: qualifications, label: Qualifications, widget: string }
+              - { name: experience, label: Years of experience, widget: number }
+              - { name: languages, label: Languages, widget: list }
+              - { name: gender, label: Gender, widget: select, options: [male, female] }
+              - { name: rating, label: Rating, widget: number, value_type: float, min: 1, max: 5 }
+              - { name: reviews, label: Review count, widget: number }
+              - *days
+              - { name: bio, label: Bio, widget: text }
+              - { name: photo, label: Photo, widget: image }
+              - { name: video, label: Video intro URL (YouTube nocookie embed), widget: string, required: false }
+      - name: departments
+        label: Departments
+        file: content/departments.json
+        format: json
+        fields:
+          - name: items
+            label: Departments
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: slug, label: URL slug, widget: string }
+              - { name: icon, label: Icon, widget: select, options: [heart, tooth, child, bone, skin, women, stethoscope, eye] }
+              - { name: name, label: Name, widget: string }
+              - { name: summary, label: Summary, widget: text }
+              - { name: description, label: Description, widget: text }
+              - { name: services, label: Services, widget: list }
+              - { name: image, label: Image, widget: image }
+      - name: posts
+        label: Health articles
+        file: content/posts.json
+        format: json
+        fields:
+          - name: items
+            label: Articles
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            fields:
+              - { name: slug, label: URL slug, widget: string }
+              - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
+              - { name: category, label: Department slug, widget: string }
+              - { name: readMinutes, label: Minutes to read, widget: number }
+              - { name: author, label: Author (doctor slug), widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: excerpt, label: Excerpt, widget: text }
+              - { name: body, label: Body (HTML), widget: text }
+              - { name: image, label: Cover image, widget: image }
+      - name: testimonials
+        label: Patient reviews
+        file: content/testimonials.json
+        format: json
+        fields:
+          - name: items
+            label: Reviews
+            widget: list
+            summary: "{{fields.name}} · {{fields.rating}}★"
+            fields:
+              - { name: name, label: Patient name (initial only), widget: string }
+              - { name: rating, label: Rating, widget: number, min: 1, max: 5 }
+              - { name: department, label: Department slug, widget: string }
+              - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
+              - { name: text, label: Review, widget: text }
+      - name: faqs
+        label: FAQ
+        file: content/faqs.json
+        format: json
+        fields:
+          - name: items
+            label: Questions
+            widget: list
+            summary: "{{fields.q}}"
+            fields:
+              - { name: category, label: Category, widget: select, options: [appointments, insurance, general, privacy, emergency] }
+              - { name: q, label: Question, widget: string }
+              - { name: a, label: Answer, widget: text }
+      - name: jobs
+        label: Careers
+        file: content/jobs.json
+        format: json
+        fields:
+          - name: items
+            label: Open positions
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: id, label: Job ID, widget: string }
+              - { name: department, label: Department slug (or "general"), widget: string }
+              - { name: type, label: Type, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: summary, label: Summary, widget: text }
+      - name: insurance
+        label: Insurance & payment
+        file: content/insurance.json
+        format: json
+        fields:
+          - { name: providers, label: Insurance providers, widget: list }
+          - { name: payments, label: Payment methods, widget: list }

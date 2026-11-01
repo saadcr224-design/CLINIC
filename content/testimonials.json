@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "name": "Abdullah M.",
+      "rating": 5,
+      "department": "cardiology",
+      "date": "2026-09-14",
+      "text": "Dr. Khalid took the time to explain every test result. The cardiac rehab team got me back to walking every evening within weeks."
+    },
+    {
+      "name": "Reem A.",
+      "rating": 5,
+      "department": "obstetrics-gynecology",
+      "date": "2026-08-30",
+      "text": "I followed my whole pregnancy with Dr. Sarah. Booking online and getting WhatsApp reminders made everything so easy."
+    },
+    {
+      "name": "Imran K.",
+      "rating": 5,
+      "department": "orthopedics",
+      "date": "2026-08-02",
+      "text": "After my football injury I was worried about surgery. Dr. Omar's physio plan fixed my knee without it."
+    },
+    {
+      "name": "Hessa S.",
+      "rating": 5,
+      "department": "pediatrics",
+      "date": "2026-07-21",
+      "text": "Dr. Noura is wonderful with children. My son actually looks forward to his check-ups now!"
+    },
+    {
+      "name": "Mark T.",
+      "rating": 4,
+      "department": "dental",
+      "date": "2026-06-11",
+      "text": "Professional, spotless clinic and staff who speak excellent English. My implant was painless."
+    },
+    {
+      "name": "Fatimah Z.",
+      "rating": 5,
+      "department": "internal-medicine",
+      "date": "2026-05-28",
+      "text": "My HbA1c dropped from 9.1 to 6.8 with Dr. Ahmed's diabetes programme. The dietitian sessions were a game changer."
+    }
+  ]
+}

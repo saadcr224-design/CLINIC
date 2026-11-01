@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('insurance.title'), lead: t('insurance.lead'), image: site.images.insurance }) %>
+<section class="section">
+  <div class="container">
+    <h2><%= t('insurance.providers') %></h2>
+    <ul class="logo-grid">
+      <% insurance.providers.forEach(p => { %><li><svg class="ic"><use href="#i-shield"/></svg><%= p %></li><% }) %>
+    </ul>
+    <p class="muted"><%= t('insurance.notListed') %> <a href="tel:<%= site.phone %>" dir="ltr"><%= site.phoneDisplay %></a></p>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container split">
+    <div>
+      <h2><%= t('insurance.how') %></h2>
+      <ol class="steps">
+        <% [1,2,3,4].forEach(n => { %><li><%= t('insurance.how' + n) %></li><% }) %>
+      </ol>
+    </div>
+    <div>
+      <h2><%= t('insurance.payments') %></h2>
+      <ul class="logo-grid compact">
+        <% insurance.payments.forEach(p => { %><li><svg class="ic"><use href="#i-card"/></svg><%= p %></li><% }) %>
+      </ul>
+      <a class="btn btn-primary" href="<%= url('/book') %>"><%= t('nav.book') %></a>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

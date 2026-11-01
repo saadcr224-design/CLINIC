@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "rn-2026-01",
+      "department": "internal-medicine",
+      "type": "Full-time",
+      "title": "Registered Nurse – Outpatient Clinics",
+      "summary": "SCFHS-registered nurse with 2+ years of outpatient experience. BLS required."
+    },
+    {
+      "id": "ped-2026-02",
+      "department": "pediatrics",
+      "type": "Full-time",
+      "title": "Specialist Pediatrician",
+      "summary": "Saudi Board or equivalent, SCFHS classification as Specialist. Arabic and English required."
+    },
+    {
+      "id": "rec-2026-03",
+      "department": "general",
+      "type": "Full-time",
+      "title": "Patient Experience Coordinator",
+      "summary": "Customer-service professional to manage bookings, WhatsApp enquiries and patient feedback."
+    },
+    {
+      "id": "it-2026-04",
+      "department": "general",
+      "type": "Full-time",
+      "title": "Information Security Analyst",
+      "summary": "Monitor, harden and audit clinical systems in line with NCA ECC and PDPL requirements."
+    }
+  ]
+}
