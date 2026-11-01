@@ -6,12 +6,28 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
 
-  // ---------- Image fallback (if a remote photo fails to load) ----------
-  const FALLBACK = '/img/fallback.svg';
+  // ---------- Image fallback ----------
+  // If a remote photo fails to load, try known-good backup photos (portraits for doctor
+  // photos, clinic photos elsewhere) before falling back to the branded placeholder.
+  const PLACEHOLDER = '/img/fallback.svg';
+  const isPortrait = (img) => !!img.closest('.doctor-photo, .profile-photo, .avatar-img, .slot-group');
   function guard(img) {
-    const swap = () => { if (!img.src.endsWith(FALLBACK)) { img.srcset = ''; img.src = FALLBACK; img.classList.add('img-fallback'); } };
-    if (img.complete && img.naturalWidth === 0 && img.src) swap();
-    img.addEventListener('error', swap, { once: true });
+    let tries = 0;
+    const next = () => {
+      const pool = (isPortrait(img) ? cfg.fallbackPortraits : cfg.fallbackImages) || [];
+      const candidate = pool.find((u) => u !== img.currentSrc && !img.dataset.tried?.includes(u));
+      img.removeAttribute('srcset');
+      if (candidate && tries < 3) {
+        tries++;
+        img.dataset.tried = (img.dataset.tried || '') + ' ' + candidate;
+        img.src = candidate;
+      } else if (!img.src.endsWith(PLACEHOLDER)) {
+        img.src = PLACEHOLDER;
+        img.classList.add('img-fallback');
+      }
+    };
+    img.addEventListener('error', next);
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) next();
   }
   $$('img').forEach(guard);
   window.guardImage = guard;
@@ -80,13 +96,13 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 
-  // ---------- JSON POST helper (CSRF header + language) ----------
+  // ---------- JSON POST helper (sends the CSRF token header) ----------
   async function postJSON(url, data) {
     const res = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': cfg.csrf },
       credentials: 'same-origin',
-      body: JSON.stringify({ ...data, lang: cfg.lang }),
+      body: JSON.stringify(data),
     });
     let body = {};
     try { body = await res.json(); } catch (_) { /* non-JSON error */ }

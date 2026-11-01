@@ -1,8 +1,9 @@
 <%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalWebPage', headline: L(post.title), description: L(post.excerpt), image: post.image, datePublished: post.date, inLanguage: lang,
-  author: author ? { '@type': 'Physician', name: author.name.en } : undefined, reviewedBy: author ? { '@type': 'Physician', name: author.name.en } : undefined,
-  publisher: { '@type': 'MedicalClinic', name: site.name.en } } }) %>
+  author: author ? { '@type': 'Physician', name: author.name } : undefined, reviewedBy: author ? { '@type': 'Physician', name: author.name } : undefined,
+  publisher: { '@type': 'MedicalClinic', name: site.name } } }) %>
 <article>
-  <header class="post-hero">
+  <header class="post-hero page-hero">
+    <img class="page-hero-bg" src="<%= post.image %>" srcset="<%= srcset(post.image, [800, 1200, 1800]) %>" sizes="100vw" alt="" fetchpriority="high">
     <div class="container narrow">
       <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="<%= url('/') %>"><%= t('common.home') %></a><span aria-hidden="true">/</span><a href="<%= url('/blog') %>"><%= t('nav.blog') %></a></nav>
       <h1><%= L(post.title) %></h1>
@@ -13,7 +14,6 @@
     </div>
   </header>
   <div class="container narrow">
-    <img class="post-cover" src="<%= post.image %>" srcset="<%= srcset(post.image, [600, 1000, 1200]) %>" sizes="(max-width: 860px) 100vw, 800px" alt="" width="800" height="420" fetchpriority="high">
     <div class="prose"><%- L(post.body) %></div>
     <p class="notice"><svg class="ic"><use href="#i-shield"/></svg><%= t('blog.disclaimer') %></p>
     <div class="share">

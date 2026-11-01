@@ -1,7 +1,7 @@
-<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalClinic', name: site.name.en,
+<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalClinic', name: site.name,
   aggregateRating: { '@type': 'AggregateRating', ratingValue: avg.toFixed(1), reviewCount: reviews.length },
-  review: reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.name.en }, reviewRating: { '@type': 'Rating', ratingValue: r.rating }, reviewBody: r.text.en, datePublished: r.date })) } }) %>
-<%- include('../partials/pagehead', { heading: t('testimonials.title'), lead: t('testimonials.lead') }) %>
+  review: reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.name }, reviewRating: { '@type': 'Rating', ratingValue: r.rating }, reviewBody: r.text, datePublished: r.date })) } }) %>
+<%- include('../partials/pagehead', { heading: t('testimonials.title'), lead: t('testimonials.lead'), image: site.images.testimonials }) %>
 <section class="section">
   <div class="container">
     <div class="rating-summary">

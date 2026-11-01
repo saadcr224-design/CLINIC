@@ -12,19 +12,6 @@ publish_mode: editorial_workflow
 media_folder: public/img/uploads
 public_folder: /img/uploads
 
-# Reusable bilingual field definitions
-_en_ar: &en_ar
-  widget: object
-  collapsed: false
-  fields:
-    - { name: en, label: English, widget: string }
-    - { name: ar, label: Arabic, widget: string }
-_en_ar_text: &en_ar_text
-  widget: object
-  collapsed: false
-  fields:
-    - { name: en, label: English, widget: text }
-    - { name: ar, label: Arabic, widget: text }
 _days: &days
   name: days
   label: Clinic days
@@ -36,6 +23,37 @@ collections:
   - name: clinic
     label: Clinic
     files:
+      - name: photos
+        label: Photos (page backgrounds & backups)
+        file: content/photos.json
+        format: json
+        fields:
+          - name: images
+            label: Page background photos
+            widget: object
+            fields:
+              - { name: hero, label: hero, widget: image }
+              - { name: about, label: about, widget: image }
+              - { name: doctors, label: doctors, widget: image }
+              - { name: departments, label: departments, widget: image }
+              - { name: book, label: book, widget: image }
+              - { name: contact, label: contact, widget: image }
+              - { name: blog, label: blog, widget: image }
+              - { name: testimonials, label: testimonials, widget: image }
+              - { name: faq, label: faq, widget: image }
+              - { name: careers, label: careers, widget: image }
+              - { name: insurance, label: insurance, widget: image }
+              - { name: portal, label: portal, widget: image }
+              - { name: legal, label: legal, widget: image }
+              - { name: why, label: why, widget: image }
+              - { name: cta, label: cta, widget: image }
+              - { name: newsletter, label: newsletter, widget: image }
+              - { name: facility1, label: facility1, widget: image }
+              - { name: facility2, label: facility2, widget: image }
+              - { name: facility3, label: facility3, widget: image }
+              - { name: facility4, label: facility4, widget: image }
+          - { name: fallbackImages, label: Backup photos (used if a photo fails), widget: list }
+          - { name: fallbackPortraits, label: Backup doctor portraits, widget: list }
       - name: doctors
         label: Doctors
         file: content/doctors.json
@@ -44,20 +62,20 @@ collections:
           - name: items
             label: Doctors
             widget: list
-            summary: "{{fields.name.en}}"
+            summary: "{{fields.name}}"
             fields:
               - { name: slug, label: URL slug, widget: string, pattern: ['^[a-z0-9-]+$', 'lowercase letters, numbers and dashes'] }
               - { name: department, label: Department slug, widget: string }
-              - { name: name, label: Name, <<: *en_ar }
-              - { name: title, label: Title, <<: *en_ar }
-              - { name: qualifications, label: Qualifications, <<: *en_ar }
+              - { name: name, label: Name, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: qualifications, label: Qualifications, widget: string }
               - { name: experience, label: Years of experience, widget: number }
               - { name: languages, label: Languages, widget: list }
               - { name: gender, label: Gender, widget: select, options: [male, female] }
               - { name: rating, label: Rating, widget: number, value_type: float, min: 1, max: 5 }
               - { name: reviews, label: Review count, widget: number }
               - *days
-              - { name: bio, label: Bio, <<: *en_ar_text }
+              - { name: bio, label: Bio, widget: text }
               - { name: photo, label: Photo, widget: image }
               - { name: video, label: Video intro URL (YouTube nocookie embed), widget: string, required: false }
       - name: departments
@@ -68,19 +86,14 @@ collections:
           - name: items
             label: Departments
             widget: list
-            summary: "{{fields.name.en}}"
+            summary: "{{fields.name}}"
             fields:
               - { name: slug, label: URL slug, widget: string }
               - { name: icon, label: Icon, widget: select, options: [heart, tooth, child, bone, skin, women, stethoscope, eye] }
-              - { name: name, label: Name, <<: *en_ar }
-              - { name: summary, label: Summary, <<: *en_ar_text }
-              - { name: description, label: Description, <<: *en_ar_text }
-              - name: services
-                label: Services
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: list }
-                  - { name: ar, label: Arabic, widget: list }
+              - { name: name, label: Name, widget: string }
+              - { name: summary, label: Summary, widget: text }
+              - { name: description, label: Description, widget: text }
+              - { name: services, label: Services, widget: list }
               - { name: image, label: Image, widget: image }
       - name: posts
         label: Health articles
@@ -90,21 +103,16 @@ collections:
           - name: items
             label: Articles
             widget: list
-            summary: "{{fields.date}} · {{fields.title.en}}"
+            summary: "{{fields.date}} · {{fields.title}}"
             fields:
               - { name: slug, label: URL slug, widget: string }
               - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
               - { name: category, label: Department slug, widget: string }
               - { name: readMinutes, label: Minutes to read, widget: number }
               - { name: author, label: Author (doctor slug), widget: string }
-              - { name: title, label: Title, <<: *en_ar }
-              - { name: excerpt, label: Excerpt, <<: *en_ar_text }
-              - name: body
-                label: Body (HTML)
-                widget: object
-                fields:
-                  - { name: en, label: English, widget: text }
-                  - { name: ar, label: Arabic, widget: text }
+              - { name: title, label: Title, widget: string }
+              - { name: excerpt, label: Excerpt, widget: text }
+              - { name: body, label: Body (HTML), widget: text }
               - { name: image, label: Cover image, widget: image }
       - name: testimonials
         label: Patient reviews
@@ -114,13 +122,13 @@ collections:
           - name: items
             label: Reviews
             widget: list
-            summary: "{{fields.name.en}} · {{fields.rating}}★"
+            summary: "{{fields.name}} · {{fields.rating}}★"
             fields:
-              - { name: name, label: Patient name (initial only), <<: *en_ar }
+              - { name: name, label: Patient name (initial only), widget: string }
               - { name: rating, label: Rating, widget: number, min: 1, max: 5 }
               - { name: department, label: Department slug, widget: string }
               - { name: date, label: Date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
-              - { name: text, label: Review, <<: *en_ar_text }
+              - { name: text, label: Review, widget: text }
       - name: faqs
         label: FAQ
         file: content/faqs.json
@@ -129,11 +137,11 @@ collections:
           - name: items
             label: Questions
             widget: list
-            summary: "{{fields.q.en}}"
+            summary: "{{fields.q}}"
             fields:
               - { name: category, label: Category, widget: select, options: [appointments, insurance, general, privacy, emergency] }
-              - { name: q, label: Question, <<: *en_ar }
-              - { name: a, label: Answer, <<: *en_ar_text }
+              - { name: q, label: Question, widget: string }
+              - { name: a, label: Answer, widget: text }
       - name: jobs
         label: Careers
         file: content/jobs.json
@@ -142,13 +150,13 @@ collections:
           - name: items
             label: Open positions
             widget: list
-            summary: "{{fields.title.en}}"
+            summary: "{{fields.title}}"
             fields:
               - { name: id, label: Job ID, widget: string }
               - { name: department, label: Department slug (or "general"), widget: string }
-              - { name: type, label: Type, <<: *en_ar }
-              - { name: title, label: Title, <<: *en_ar }
-              - { name: summary, label: Summary, <<: *en_ar_text }
+              - { name: type, label: Type, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: summary, label: Summary, widget: text }
       - name: insurance
         label: Insurance & payment
         file: content/insurance.json

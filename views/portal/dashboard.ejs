@@ -1,11 +1,12 @@
 <%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('portal.title'), lead: t('portal.lead'), image: site.images.portal }) %>
 <section class="section portal">
   <div class="container">
     <div class="portal-head">
       <div>
         <p class="muted"><%= t('portal.welcome') %></p>
-        <h1><%= profile.name %></h1>
-        <% if (profile.patient) { %><p class="portal-ids"><span>MRN <strong dir="ltr"><%= profile.patient.mrn %></strong></span><span><%= t('book.dob') %> <strong dir="ltr"><%= profile.patient.dob %></strong></span><span><%= lang === 'ar' ? 'فصيلة الدم' : 'Blood type' %> <strong dir="ltr"><%= profile.patient.bloodType %></strong></span></p><% } %>
+        <h2 class="portal-name"><%= profile.name %></h2>
+        <% if (profile.patient) { %><p class="portal-ids"><span>MRN <strong dir="ltr"><%= profile.patient.mrn %></strong></span><span><%= t('book.dob') %> <strong dir="ltr"><%= profile.patient.dob %></strong></span><span><%= 'Blood type' %> <strong dir="ltr"><%= profile.patient.bloodType %></strong></span></p><% } %>
       </div>
       <form method="post" action="<%= url('/portal/logout') %>"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="btn btn-outline" type="submit"><%= t('portal.logout') %></button></form>
     </div>

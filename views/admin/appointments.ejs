@@ -18,7 +18,7 @@
     <tr>
       <td><code><%= a.ref %></code></td>
       <td><%= a.date %> <strong><%= a.time %></strong></td>
-      <td><%= d ? d.name.en : a.doctor %></td>
+      <td><%= d ? d.name : a.doctor %></td>
       <td><%= a.patient.name %><% if (a.reason) { %><br><small class="muted"><%= a.reason %></small><% } %></td>
       <td><a href="tel:<%= a.patient.phone %>"><%= a.patient.phone %></a><br><small><%= a.patient.email %></small></td>
       <td><span class="reveal" data-value="<%= a.patient.nationalId %>">••••••<%= a.patient.nationalId.slice(-4) %></span></td>

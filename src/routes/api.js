@@ -12,20 +12,19 @@ const chatbot = require('../chatbot');
 
 const router = express.Router();
 
-const lang = (req) => (req.body && req.body.lang === 'ar') || req.query.lang === 'ar' ? 'ar' : 'en';
 const fail = (res, status, error, extra = {}) => res.status(status).json({ ok: false, error, ...extra });
 
 // Every failed bot check issues a fresh challenge so the user can retry without reloading.
 function botGuard(req, res) {
   const problem = checkBot(req);
   if (!problem) return false;
-  const message = problem === 'captcha' ? (lang(req) === 'ar' ? 'إجابة التحقق الأمني غير صحيحة.' : 'Security check answer is incorrect.') : 'Rejected';
+  const message = problem === 'captcha' ? 'Security check answer is incorrect.' : 'Rejected';
   fail(res, 400, message, { field: 'captcha', captcha: newCaptcha(req) });
   return true;
 }
 
 function badInput(req, res, errors) {
-  fail(res, 422, lang(req) === 'ar' ? 'يرجى التحقق من الحقول المحددة.' : 'Please check the highlighted fields.', { errors, captcha: newCaptcha(req) });
+  fail(res, 422, 'Please check the highlighted fields.', { errors, captcha: newCaptcha(req) });
 }
 
 const formLimiter = limiter(15, 10);
@@ -78,7 +77,7 @@ router.post('/appointments', formLimiter, async (req, res) => {
   const doctor = content.doctor(v.doctor);
   if (!doctor) return badInput(req, res, { doctor: 'invalid' });
   if (!availableSlots(doctor, v.date).includes(v.time)) {
-    return fail(res, 409, lang(req) === 'ar' ? 'هذا الوقت لم يعد متاحاً. يرجى اختيار وقت آخر.' : 'That time was just taken. Please choose another slot.', {
+    return fail(res, 409, 'That time was just taken. Please choose another slot.', {
       field: 'time',
       captcha: newCaptcha(req),
     });
@@ -97,20 +96,12 @@ router.post('/appointments', formLimiter, async (req, res) => {
     reason: v.reason,
     insurance: v.insurance || 'self-pay',
     whatsappReminders: req.body.reminders === true || req.body.reminders === 'on',
-    lang: lang(req),
   });
   audit.log(req, 'appointment.create', appt.ref, { doctor: doctor.slug, date: v.date });
 
-  const L = lang(req);
-  const msg =
-    L === 'ar'
-      ? `تم تأكيد موعدك ${ref} مع ${doctor.name.ar} يوم ${v.date} الساعة ${v.time}. ${content.site().name.ar}`
-      : `Your appointment ${ref} with ${doctor.name.en} is confirmed for ${v.date} at ${v.time}. ${content.site().name.en}`;
-  notify.sms(v.phone, msg);
-  if (appt.whatsappReminders) notify.whatsapp(v.phone, msg);
-  notify.email(v.email, L === 'ar' ? 'تأكيد الموعد' : 'Appointment confirmed', msg);
+  notify.appointmentConfirmed(appt, doctor);
 
-  res.json({ ok: true, ref, doctor: doctor.name[L], date: v.date, time: v.time, fee: FEES[doctor.department] || 300, captcha: newCaptcha(req) });
+  res.json({ ok: true, ref, doctor: doctor.name, date: v.date, time: v.time, fee: FEES[doctor.department] || 300, captcha: newCaptcha(req) });
 });
 
 // ---------- Contact form ----------
@@ -127,20 +118,21 @@ router.post('/contact', formLimiter, (req, res) => {
   const row = store.insert('messages', { type: 'contact', ...values, status: 'new' });
   audit.log(req, 'contact.create', row.id);
   notify.staff(`New ${values.subject} enquiry from ${values.name}`);
-  res.json({ ok: true, message: t(lang(req), 'contact.sent'), captcha: newCaptcha(req) });
+  notify.contactAutoReply(values);
+  res.json({ ok: true, message: t('contact.sent'), captcha: newCaptcha(req) });
 });
 
 // ---------- Newsletter ----------
 router.post('/newsletter', formLimiter, (req, res) => {
   const { values, errors, ok } = validate(req.body, { email: { rule: 'email', required: true, max: 254 } });
-  if (!ok || req.body.website) return fail(res, 422, lang(req) === 'ar' ? 'بريد إلكتروني غير صالح.' : 'Please enter a valid email.', { errors });
+  if (!ok || req.body.website) return fail(res, 422, 'Please enter a valid email.', { errors });
   const email = values.email.toLowerCase();
   if (!store.find('subscribers', (s) => s.email === email).length) {
-    store.insert('subscribers', { email, lang: lang(req), confirmed: false });
+    store.insert('subscribers', { email, confirmed: false });
     audit.log(req, 'newsletter.subscribe', mask(email, 8));
   }
   // Same response either way, so the endpoint can't be used to check who is subscribed.
-  res.json({ ok: true, message: t(lang(req), 'newsletter.thanks') });
+  res.json({ ok: true, message: t('newsletter.thanks') });
 });
 
 // ---------- Reviews (moderated) ----------
@@ -155,7 +147,7 @@ router.post('/reviews', formLimiter, (req, res) => {
   if (!ok) return badInput(req, res, errors);
   store.insert('reviews', { ...values, rating: Number(values.rating), status: 'pending' });
   audit.log(req, 'review.create');
-  res.json({ ok: true, message: t(lang(req), 'testimonials.thanks'), captcha: newCaptcha(req) });
+  res.json({ ok: true, message: t('testimonials.thanks'), captcha: newCaptcha(req) });
 });
 
 // ---------- Ambulance request (no CAPTCHA: speed matters; rate-limited instead) ----------
@@ -166,7 +158,7 @@ router.post('/ambulance', limiter(10, 5), (req, res) => {
     phone: { rule: 'phone', required: true, max: 20 },
     notes: { max: 300 },
   });
-  if (!ok) return fail(res, 422, lang(req) === 'ar' ? 'يرجى إدخال رقم جوال صحيح.' : 'Please enter a valid mobile number.', { errors });
+  if (!ok) return fail(res, 422, 'Please enter a valid mobile number.', { errors });
   const hasGeo = String(req.body.lat ?? '').trim() !== '' && String(req.body.lng ?? '').trim() !== '';
   const lat = Number(req.body.lat);
   const lng = Number(req.body.lng);
@@ -176,7 +168,7 @@ router.post('/ambulance', limiter(10, 5), (req, res) => {
   notify.staff(
     `🚑 AMBULANCE REQUEST: call ${values.phone}` + (location ? ` · https://maps.google.com/?q=${location.lat},${location.lng}` : ' · no location shared')
   );
-  res.json({ ok: true, message: t(lang(req), 'emergency.sent') });
+  res.json({ ok: true, message: t('emergency.sent') });
 });
 
 // ---------- Careers ----------
@@ -193,14 +185,14 @@ router.post('/careers', formLimiter, (req, res) => {
   if (!ok) return badInput(req, res, errors);
   store.insert('applications', { ...values, status: 'new' });
   audit.log(req, 'careers.apply', values.job);
-  res.json({ ok: true, message: t(lang(req), 'careers.applied'), captcha: newCaptcha(req) });
+  res.json({ ok: true, message: t('careers.applied'), captcha: newCaptcha(req) });
 });
 
 // ---------- Chatbot ----------
 router.post('/chat', limiter(1, 20), (req, res) => {
   const text = clean(req.body.message, 300);
   if (!text) return fail(res, 400, 'Empty message');
-  res.json({ ok: true, ...chatbot.reply(text, lang(req)) });
+  res.json({ ok: true, ...chatbot.reply(text) });
 });
 
 router.get('/health', (req, res) => res.json({ ok: true, time: riyadhNow() }));

@@ -53,3 +53,37 @@ async function staff(text) {
 }
 
 module.exports = { whatsapp, sms, email, staff };
+
+// ---------- Message templates used by the booking flow and the automation jobs ----------
+const content = require('./content');
+
+function appointmentConfirmed(appt, doctor) {
+  const site = content.site();
+  const msg = `${site.name}: your appointment ${appt.ref} with ${doctor.name} is confirmed for ${appt.date} at ${appt.time}. Need to change it? Call ${site.phoneDisplay}.`;
+  sms(appt.patient.phone, msg);
+  if (appt.whatsappReminders) whatsapp(appt.patient.phone, msg);
+  email(appt.patient.email, `Appointment confirmed: ${appt.date} at ${appt.time}`, msg);
+}
+
+function appointmentReminder(appt, doctor) {
+  const site = content.site();
+  const msg = `Reminder from ${site.name}: you see ${doctor.name} tomorrow (${appt.date}) at ${appt.time}. Please arrive 15 minutes early with your ID and insurance card.`;
+  if (appt.whatsappReminders) whatsapp(appt.patient.phone, msg);
+  else sms(appt.patient.phone, msg);
+  email(appt.patient.email, `Reminder: appointment tomorrow at ${appt.time}`, msg);
+}
+
+function reviewRequest(appt, doctor) {
+  const site = content.site();
+  const msg = `Thank you for visiting ${doctor.name} at ${site.name}. How did we do? Leave a quick review: ${site.url}/testimonials`;
+  if (appt.whatsappReminders) whatsapp(appt.patient.phone, msg);
+  email(appt.patient.email, 'How was your visit?', msg);
+}
+
+function contactAutoReply(msgRow) {
+  const site = content.site();
+  email(msgRow.email, `We received your message - ${site.name}`,
+    `Hello ${msgRow.name},\n\nThank you for contacting ${site.name}. Our team will reply within one working day.\nFor urgent matters call ${site.phoneDisplay}; in an emergency call ${site.nationalEmergency}.`);
+}
+
+Object.assign(module.exports, { appointmentConfirmed, appointmentReminder, reviewRequest, contactAutoReply });

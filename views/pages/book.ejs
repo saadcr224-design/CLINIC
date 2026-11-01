@@ -1,5 +1,5 @@
 <%- include('../partials/header') %>
-<%- include('../partials/pagehead', { heading: t('book.title'), lead: t('book.lead') }) %>
+<%- include('../partials/pagehead', { heading: t('book.title'), lead: t('book.lead'), image: site.images.book }) %>
 <section class="section">
   <div class="container book-grid">
     <form id="booking-form" class="card booking-form" action="/api/appointments" method="post" novalidate data-doctors-url="/api/doctors" data-slots-url="/api/slots">

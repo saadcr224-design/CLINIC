@@ -1,6 +1,6 @@
 <%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: faqs.map(f => ({ '@type': 'Question', name: L(f.q), acceptedAnswer: { '@type': 'Answer', text: L(f.a) } })) } }) %>
-<%- include('../partials/pagehead', { heading: t('faq.title'), lead: t('faq.lead') }) %>
+<%- include('../partials/pagehead', { heading: t('faq.title'), lead: t('faq.lead'), image: site.images.faq }) %>
 <section class="section">
   <div class="container narrow">
     <% [...new Set(faqs.map(f => f.category))].forEach(cat => { %>

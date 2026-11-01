@@ -1,7 +1,7 @@
 # Wahat Medical Center: clinic website
 
-A bilingual (English / العربية, full RTL) clinic website with online booking, a patient portal,
-a staff console, a chat assistant, and security controls suited to health data.
+A clean, fast, photo-led clinic website with online booking, automated patient messaging,
+a patient portal, a staff console, a chat assistant, and security controls suited to health data.
 Built with Node.js + Express and server-rendered EJS templates. It needs no database server
 to try out.
 
@@ -13,7 +13,7 @@ to try out.
 
 ```bash
 npm install
-npm start            # http://localhost:3000   (Arabic: http://localhost:3000/ar)
+npm start            # http://localhost:3000
 npm test             # API, security and RBAC tests
 ```
 
@@ -31,8 +31,7 @@ Demo accounts are **not** created when `NODE_ENV=production`. Create real ones w
 
 ## What's included
 
-**Pages** (all bilingual, `/…` English and `/ar/…` Arabic):
-Home · About (mission, history, facility gallery, accreditation) · Doctors directory with
+**Pages**: Home · About (mission, history, facility gallery, accreditation) · Doctors directory with
 search and filters (specialty, day, gender) · Doctor profiles (qualifications, experience,
 languages, clinic days, optional video intro) · Departments plus one page per department ·
 Appointment booking · Contact (map, phones, emergency line, hours) · Health library (blog) ·
@@ -45,7 +44,7 @@ Data Protection notice · 404/500 pages.
 - **Emergency button** in the header on every page. It offers one-tap calls to 997 and the clinic
   ER line, plus an ambulance request form that can attach GPS location and alerts staff.
 - **Click-to-call, WhatsApp** floating button, a mobile "Book" bar, and WhatsApp share and booking links.
-- **Chat assistant** (rule-based, bilingual). It answers booking, hours, location, insurance and
+- **Chat assistant** (rule-based). It answers booking, hours, location, insurance and
   department questions, spots emergency keywords, and hands off to WhatsApp. It never gives medical advice.
 - **Patient portal**: upcoming appointments, lab reports, prescriptions.
 - **Staff console** (`/admin`): appointments with status updates, inbox (ambulance requests,
@@ -56,8 +55,8 @@ Data Protection notice · 404/500 pages.
   can edit doctors, departments, articles, FAQs, reviews, jobs and insurers without a developer.
   The site reloads content files automatically when they change.
 
-**SEO**: per-page titles and descriptions, canonical and `hreflang` (en/ar/x-default),
-Open Graph, `sitemap.xml` with language alternates, `robots.txt`, and JSON-LD (`MedicalClinic`,
+**SEO**: per-page titles and descriptions, canonical URLs,
+Open Graph, `sitemap.xml`, `robots.txt`, and JSON-LD (`MedicalClinic`,
 `Physician`, `MedicalWebPage`, `FAQPage`, `AggregateRating`). Optional Google Analytics 4
 (`GA_MEASUREMENT_ID`) and Search Console verification.
 
@@ -65,8 +64,16 @@ Open Graph, `sitemap.xml` with language alternates, `robots.txt`, and JSON-LD (`
 focus-trapped modal, `aria-live` status messages, alt text, reduced-motion support, and
 readable font sizes and contrast.
 
-**Performance**: server-rendered HTML, gzip compression, responsive `srcset` images with lazy
-loading, a single CSS and JS file with no frameworks, and long cache headers in production.
+**Performance**: server-rendered HTML, gzip compression, a self-hosted font (no third-party font
+requests), the hero photo preloaded, responsive `srcset` images with lazy loading below the fold,
+one CSS and one small JS file with no frameworks, and long cache headers in production.
+
+**Automation** (`src/automation.js`, runs every 10 minutes inside the app):
+- Instant booking confirmation by SMS, WhatsApp and email.
+- Reminder 24 hours before each appointment, sent once.
+- Review request 2 to 72 hours after a visit is marked *completed*.
+- Auto-reply email to every contact-form message, plus staff alerts for new enquiries and ambulance requests.
+- Every automated run is recorded in the audit log.
 
 ## Security controls
 
@@ -98,20 +105,26 @@ See [`.env.example`](.env.example). Without credentials, notifications are print
 with recipients masked. Add WhatsApp Cloud API, Twilio or email-relay credentials to send them for real.
 
 ## Photos
-Photos are hot-linked from [Unsplash](https://unsplash.com/license), which is free for commercial use.
-All image URLs live in `content/*.json` (`images`, `photo`, `image` fields), so you can swap them for your
-own professional photos of the facility, equipment and staff in one place. Any image that fails to load
-falls back to a branded placeholder.
+Every page has a real photo background. Photos are hot-linked from [Unsplash](https://unsplash.com/license),
+which is free for commercial use.
+- Page backgrounds and backup photos live in `content/photos.json`, editable in the CMS under **Photos**.
+- Doctor portraits, department and article images live in their own content files.
+- If a photo fails to load, the browser swaps in a backup real photo (a portrait for doctors), and only
+  then a branded placeholder.
+- **Staff console → Photos** (`/admin/photos`) shows every photo the site uses and flags any that fail,
+  so you can check them at a glance.
+
+For the best result, replace them with your own professional photos of the facility, equipment and staff.
 
 ## Project structure
 ```
 server.js            app setup, security headers, sessions, routing
-src/                 config, i18n, content loader, auth/RBAC, crypto, store, audit, notify, slots, chatbot, SEO
+src/                 config, content loader, auth/RBAC, crypto, store, audit, notify, automation, slots, chatbot, SEO
 src/routes/          pages, api, portal, admin
-content/             CMS-editable JSON (site settings, doctors, departments, posts, FAQs, reviews, jobs, insurance)
-locales/             UI strings (en.json, ar.json)
+content/             CMS-editable JSON (site settings, photos, doctors, departments, posts, FAQs, reviews, jobs, insurance)
+locales/en.json      UI wording
 views/               EJS templates (pages, partials, portal, admin, legal)
-public/              CSS, JS, images, Decap CMS (/cms)
+public/              CSS, JS, font, images, Decap CMS (/cms)
 test/                node:test suite
 ```
 

@@ -4,106 +4,90 @@
 // service later by keeping the same { reply, actions } response shape.
 const content = require('./content');
 
-const norm = (s) => s.toLowerCase().normalize('NFKD').replace(/[ً-ْ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه');
-
-const EMERGENCY = ['chest pain', 'can\'t breathe', 'cannot breathe', 'unconscious', 'bleeding', 'stroke', 'heart attack', 'emergency', 'ambulance', 'طوارئ', 'اسعاف', 'نزيف', 'الم في الصدر', 'ضيق تنفس', 'جلطه', 'اغماء'];
+const EMERGENCY = ['chest pain', "can't breathe", 'cannot breathe', 'not breathing', 'unconscious', 'bleeding', 'stroke', 'heart attack', 'seizure', 'emergency', 'ambulance', 'overdose'];
 
 const INTENTS = [
-  { id: 'book', words: ['book', 'appointment', 'reserve', 'schedule', 'slot', 'حجز', 'موعد', 'احجز'] },
-  { id: 'hours', words: ['hour', 'open', 'close', 'timing', 'time', 'friday', 'ساعات', 'دوام', 'مفتوح', 'متى', 'الجمعه', 'وقت'] },
-  { id: 'location', words: ['where', 'location', 'address', 'map', 'direction', 'parking', 'وين', 'موقع', 'عنوان', 'خريطه', 'مواقف', 'اين'] },
-  { id: 'insurance', words: ['insurance', 'bupa', 'tawuniya', 'medgulf', 'cover', 'pay', 'price', 'cost', 'fee', 'تامين', 'بوبا', 'التعاونيه', 'سعر', 'رسوم', 'دفع', 'تكلفه'] },
-  { id: 'portal', words: ['report', 'result', 'lab', 'prescription', 'portal', 'login', 'تقرير', 'نتيجه', 'نتائج', 'مختبر', 'وصفه', 'بوابه'] },
-  { id: 'careers', words: ['job', 'career', 'hiring', 'vacancy', 'وظيفه', 'وظائف', 'توظيف'] },
-  { id: 'human', words: ['human', 'agent', 'person', 'staff', 'call', 'phone', 'whatsapp', 'موظف', 'شخص', 'اتصال', 'رقم', 'واتساب', 'تواصل'] },
-  { id: 'greeting', words: ['hello', 'hi', 'hey', 'salam', 'مرحبا', 'السلام', 'اهلا', 'هلا'] },
-  { id: 'thanks', words: ['thank', 'thanks', 'شكرا', 'يعطيك العافيه'] },
+  { id: 'book', words: ['book', 'appointment', 'reserve', 'schedule', 'slot', 'available', 'see a doctor'] },
+  { id: 'cancel', words: ['cancel', 'reschedule', 'change my appointment', 'postpone'] },
+  { id: 'hours', words: ['hour', 'open', 'close', 'timing', 'friday', 'weekend', 'when'] },
+  { id: 'location', words: ['where', 'location', 'address', 'map', 'direction', 'parking'] },
+  { id: 'insurance', words: ['insurance', 'bupa', 'tawuniya', 'medgulf', 'cover', 'pay', 'price', 'cost', 'fee', 'mada', 'cash'] },
+  { id: 'portal', words: ['report', 'result', 'lab', 'prescription', 'portal', 'login'] },
+  { id: 'careers', words: ['job', 'career', 'hiring', 'vacancy', 'work with you'] },
+  { id: 'human', words: ['human', 'agent', 'person', 'staff', 'call', 'phone', 'whatsapp', 'talk'] },
+  { id: 'greeting', words: ['hello', 'hi', 'hey', 'salam', 'good morning', 'good evening'] },
+  { id: 'thanks', words: ['thank', 'thanks'] },
 ];
 
-function reply(message, lang) {
-  const text = norm(message);
-  const site = content.site();
-  const ar = lang === 'ar';
-  const p = ar ? '/ar' : '';
-  const L = (f) => f[lang] || f.en;
-  const wa = { label: ar ? 'واتساب' : 'WhatsApp us', url: `https://wa.me/${site.whatsapp}` };
+const hasWord = (text, w) => new RegExp(`\\b${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(text);
 
-  if (EMERGENCY.some((w) => text.includes(norm(w)))) {
+function reply(message) {
+  const text = String(message).toLowerCase();
+  const site = content.site();
+  const wa = { label: 'WhatsApp us', url: `https://wa.me/${site.whatsapp}` };
+
+  if (EMERGENCY.some((w) => text.includes(w))) {
     return {
       urgent: true,
-      reply: ar
-        ? `إذا كانت حالة طارئة تهدد الحياة، اتصل فوراً بالرقم ${site.nationalEmergency}. قسم الطوارئ لدينا يعمل 24/7 على ${site.emergencyPhoneDisplay}.`
-        : `If this is a life-threatening emergency, call ${site.nationalEmergency} now. Our 24/7 emergency department is on ${site.emergencyPhoneDisplay}.`,
+      reply: `If this is a life-threatening emergency, call ${site.nationalEmergency} now. Our 24/7 emergency department is on ${site.emergencyPhoneDisplay}.`,
       actions: [
-        { label: ar ? `اتصل ${site.nationalEmergency}` : `Call ${site.nationalEmergency}`, url: `tel:${site.nationalEmergency}` },
-        { label: ar ? 'طوارئ المركز' : 'Our ER line', url: `tel:${site.emergencyPhone}` },
+        { label: `Call ${site.nationalEmergency}`, url: `tel:${site.nationalEmergency}` },
+        { label: 'Our ER line', url: `tel:${site.emergencyPhone}` },
       ],
     };
   }
 
-  // Department / specialty mentioned → point to doctors and booking.
+  // Department or specialty mentioned → point to its doctors and booking.
+  const aliases = { dental: ['dentist', 'teeth', 'tooth'], pediatrics: ['child', 'kid', 'baby', 'pediatric'], cardiology: ['heart', 'cardio'],
+    orthopedics: ['bone', 'knee', 'back pain', 'joint'], dermatology: ['skin', 'acne', 'derma'], 'obstetrics-gynecology': ['pregnan', 'gyn', 'obstetric'],
+    'internal-medicine': ['diabetes', 'thyroid', 'internal'], ophthalmology: ['eye', 'vision', 'lasik'] };
   for (const d of content.departments()) {
-    const names = [d.slug.replace(/-/g, ' '), d.name.en, d.name.ar].map(norm);
-    if (names.some((n) => n.split(/[ &]+/).some((w) => w.length > 3 && text.includes(w)))) {
+    const words = [d.name.toLowerCase(), ...(aliases[d.slug] || [])];
+    if (words.some((w) => text.includes(w))) {
       const docs = content.doctors().filter((x) => x.department === d.slug);
       return {
-        reply: ar
-          ? `قسم ${d.name.ar}: ${d.summary.ar} لدينا ${docs.length} من الأطباء: ${docs.map((x) => x.name.ar).join('، ')}.`
-          : `${d.name.en}: ${d.summary.en} Our doctors: ${docs.map((x) => x.name.en).join(', ')}.`,
+        reply: `${d.name}: ${d.summary} Our doctors: ${docs.map((x) => x.name).join(', ')}.`,
         actions: [
-          { label: ar ? 'احجز في هذا القسم' : 'Book in this department', url: `${p}/book?dept=${d.slug}` },
-          { label: ar ? 'تفاصيل القسم' : 'Department details', url: `${p}/departments/${d.slug}` },
+          { label: 'Book in this department', url: `/book?dept=${d.slug}` },
+          { label: 'Department details', url: `/departments/${d.slug}` },
         ],
       };
     }
   }
 
-  const scores = INTENTS.map((i) => ({ id: i.id, n: i.words.filter((w) => text.includes(norm(w))).length })).sort((a, b) => b.n - a.n);
+  const scores = INTENTS.map((i) => ({ id: i.id, n: i.words.filter((w) => hasWord(text, w)).length })).sort((a, b) => b.n - a.n);
   const intent = scores[0].n ? scores[0].id : null;
 
   switch (intent) {
     case 'book':
       return {
-        reply: ar ? 'يمكنك الحجز إلكترونياً خلال دقيقة، وسيصلك التأكيد فوراً.' : 'You can book online in under a minute and get instant confirmation.',
-        actions: [{ label: ar ? 'احجز موعداً' : 'Book appointment', url: `${p}/book` }, { label: ar ? 'ابحث عن طبيب' : 'Find a doctor', url: `${p}/doctors` }],
+        reply: 'You can book online in under a minute and get instant confirmation by SMS and WhatsApp.',
+        actions: [{ label: 'Book appointment', url: '/book' }, { label: 'Find a doctor', url: '/doctors' }],
+      };
+    case 'cancel':
+      return {
+        reply: 'To cancel or reschedule, use the link in your confirmation message, sign in to the patient portal, or call reception at least 4 hours before.',
+        actions: [{ label: 'Patient portal', url: '/portal' }, { label: 'Call us', url: `tel:${site.phone}` }],
       };
     case 'hours':
-      return {
-        reply: site.hours.map((h) => `${L(h.days)}: ${L(h.time)}`).join('\n'),
-        actions: [{ label: ar ? 'اتصل بنا' : 'Contact us', url: `${p}/contact` }],
-      };
+      return { reply: site.hours.map((h) => `${h.days}: ${h.time}`).join('\n'), actions: [{ label: 'Contact us', url: '/contact' }] };
     case 'location':
-      return {
-        reply: (ar ? 'عنواننا: ' : 'We are at: ') + L(site.address) + (ar ? '. تتوفر مواقف مجانية وخدمة صف السيارات.' : '. Free parking and valet available.'),
-        actions: [{ label: ar ? 'الاتجاهات' : 'Get directions', url: site.mapDirections }],
-      };
+      return { reply: `We are at ${site.address}. Free parking and valet are available.`, actions: [{ label: 'Get directions', url: site.mapDirections }] };
     case 'insurance':
       return {
-        reply:
-          (ar ? 'نتعامل مع: ' : 'We accept: ') +
-          content.insurance().providers.slice(0, 6).join(ar ? '، ' : ', ') +
-          (ar ? ' وغيرها. رسوم الاستشارة تبدأ من 250 ريال.' : ' and more. Consultations start from SAR 250.'),
-        actions: [{ label: ar ? 'التأمين والدفع' : 'Insurance & payment', url: `${p}/insurance` }],
+        reply: `We accept ${content.insurance().providers.slice(0, 6).join(', ')} and more. Consultations start from SAR 250.`,
+        actions: [{ label: 'Insurance & payment', url: '/insurance' }],
       };
     case 'portal':
-      return {
-        reply: ar ? 'تقارير المختبر والوصفات متاحة في بوابة المرضى الآمنة.' : 'Lab reports and prescriptions are available in the secure patient portal.',
-        actions: [{ label: ar ? 'بوابة المرضى' : 'Patient portal', url: `${p}/portal` }],
-      };
+      return { reply: 'Lab reports and prescriptions are available in the secure patient portal.', actions: [{ label: 'Patient portal', url: '/portal' }] };
     case 'careers':
-      return { reply: ar ? 'اطلع على الوظائف المتاحة وقدّم إلكترونياً.' : 'See our open positions and apply online.', actions: [{ label: ar ? 'الوظائف' : 'Careers', url: `${p}/careers` }] };
+      return { reply: 'See our open positions and apply online.', actions: [{ label: 'Careers', url: '/careers' }] };
     case 'greeting':
-      return { reply: ar ? 'أهلاً وسهلاً! كيف يمكنني مساعدتك اليوم؟' : 'Hello! How can I help you today?', actions: [] };
+      return { reply: 'Hello! How can I help you today?', actions: [] };
     case 'thanks':
-      return { reply: ar ? 'العفو! نتمنى لك دوام الصحة.' : "You're welcome! Wishing you good health.", actions: [] };
-    case 'human':
+      return { reply: "You're welcome! Wishing you good health.", actions: [] };
     default:
-      return {
-        reply: ar
-          ? 'سأحولك إلى فريقنا. يمكنك مراسلتنا على الواتساب أو الاتصال بنا مباشرة.'
-          : "Let me connect you with our team. Message us on WhatsApp or call us directly.",
-        actions: [wa, { label: ar ? 'اتصال' : 'Call us', url: `tel:${site.phone}` }],
-      };
+      return { reply: 'Let me connect you with our team. Message us on WhatsApp or call us directly.', actions: [wa, { label: 'Call us', url: `tel:${site.phone}` }] };
   }
 }
 

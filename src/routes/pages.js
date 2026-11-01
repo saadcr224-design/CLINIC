@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
 router.get('/about', (req, res) => res.render('pages/about', { title: res.locals.t('about.title') }));
 
 router.get('/doctors', (req, res) => {
-  const { L } = res.locals;
   const q = String(req.query.q || '').trim().toLowerCase().slice(0, 60);
   const filters = {
     q,
@@ -34,7 +33,7 @@ router.get('/doctors', (req, res) => {
     if (filters.gender && d.gender !== filters.gender) return false;
     if (q) {
       const dept = depts[d.department];
-      const hay = [d.name.en, d.name.ar, d.title.en, d.title.ar, dept && dept.name.en, dept && dept.name.ar, ...d.languages, L(d.bio)]
+      const hay = [d.name, d.title, dept && dept.name, ...d.languages, d.bio]
         .join(' ')
         .toLowerCase();
       if (!hay.includes(q)) return false;
@@ -118,7 +117,7 @@ router.get('/insurance', (req, res) => res.render('pages/insurance', { title: re
 for (const page of ['privacy', 'terms', 'data-protection']) {
   router.get(`/${page}`, (req, res) => {
     const titles = { privacy: 'footer.privacy', terms: 'footer.terms', 'data-protection': 'footer.dataProtection' };
-    res.render(`legal/${page}-${res.locals.lang}`, { title: res.locals.t(titles[page]) });
+    res.render(`legal/${page}`, { title: res.locals.t(titles[page]) });
   });
 }
 

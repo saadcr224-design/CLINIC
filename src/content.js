@@ -19,7 +19,8 @@ function load(name) {
 }
 
 module.exports = {
-  site: () => load('site'),
+  // Site settings plus the photo set (kept in its own file so the CMS can edit photos alone).
+  site: () => ({ ...load('site'), ...load('photos') }),
   departments: () => load('departments'),
   doctors: () => load('doctors'),
   posts: () => load('posts').slice().sort((a, b) => b.date.localeCompare(a.date)),

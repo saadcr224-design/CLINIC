@@ -1,4 +1,4 @@
-<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalSpecialty', name: department.name.en, description: department.description.en } }) %>
+<%- include('../partials/header', { jsonLd: { '@context': 'https://schema.org', '@type': 'MedicalSpecialty', name: department.name, description: department.description } }) %>
 <%- include('../partials/pagehead', { heading: L(department.name), lead: L(department.summary), image: department.image, crumbs: [[url('/departments'), t('nav.departments')]] }) %>
 <section class="section">
   <div class="container split split-wide">

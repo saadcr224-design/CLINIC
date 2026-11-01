@@ -1,4 +1,25 @@
 {
-  "providers": ["Bupa Arabia", "Tawuniya", "MedGulf", "AXA Cooperative (GIG)", "Malath", "Al Rajhi Takaful", "Walaa", "SAICO", "Allianz Saudi Fransi", "Arabian Shield", "Gulf Union Alahlia", "Salama"],
-  "payments": ["mada", "Visa", "Mastercard", "Apple Pay", "STC Pay", "Tabby", "Cash"]
+  "providers": [
+    "Bupa Arabia",
+    "Tawuniya",
+    "MedGulf",
+    "AXA Cooperative (GIG)",
+    "Malath",
+    "Al Rajhi Takaful",
+    "Walaa",
+    "SAICO",
+    "Allianz Saudi Fransi",
+    "Arabian Shield",
+    "Gulf Union Alahlia",
+    "Salama"
+  ],
+  "payments": [
+    "mada",
+    "Visa",
+    "Mastercard",
+    "Apple Pay",
+    "STC Pay",
+    "Tabby",
+    "Cash"
+  ]
 }

@@ -3,66 +3,30 @@
     {
       "id": "rn-2026-01",
       "department": "internal-medicine",
-      "type": {
-        "en": "Full-time",
-        "ar": "دوام كامل"
-      },
-      "title": {
-        "en": "Registered Nurse – Outpatient Clinics",
-        "ar": "ممرض/ة مسجل/ة – العيادات الخارجية"
-      },
-      "summary": {
-        "en": "SCFHS-registered nurse with 2+ years of outpatient experience. BLS required.",
-        "ar": "ممرض/ة مسجل/ة في الهيئة السعودية للتخصصات الصحية بخبرة سنتين على الأقل. شهادة BLS مطلوبة."
-      }
+      "type": "Full-time",
+      "title": "Registered Nurse – Outpatient Clinics",
+      "summary": "SCFHS-registered nurse with 2+ years of outpatient experience. BLS required."
     },
     {
       "id": "ped-2026-02",
       "department": "pediatrics",
-      "type": {
-        "en": "Full-time",
-        "ar": "دوام كامل"
-      },
-      "title": {
-        "en": "Specialist Pediatrician",
-        "ar": "أخصائي/ة طب أطفال"
-      },
-      "summary": {
-        "en": "Saudi Board or equivalent, SCFHS classification as Specialist. Arabic and English required.",
-        "ar": "البورد السعودي أو ما يعادله، وتصنيف أخصائي من الهيئة. إجادة العربية والإنجليزية."
-      }
+      "type": "Full-time",
+      "title": "Specialist Pediatrician",
+      "summary": "Saudi Board or equivalent, SCFHS classification as Specialist. Arabic and English required."
     },
     {
       "id": "rec-2026-03",
       "department": "general",
-      "type": {
-        "en": "Full-time",
-        "ar": "دوام كامل"
-      },
-      "title": {
-        "en": "Patient Experience Coordinator",
-        "ar": "منسق/ة تجربة المرضى"
-      },
-      "summary": {
-        "en": "Customer-service professional to manage bookings, WhatsApp enquiries and patient feedback.",
-        "ar": "متخصص/ة في خدمة العملاء لإدارة الحجوزات واستفسارات الواتساب وملاحظات المرضى."
-      }
+      "type": "Full-time",
+      "title": "Patient Experience Coordinator",
+      "summary": "Customer-service professional to manage bookings, WhatsApp enquiries and patient feedback."
     },
     {
       "id": "it-2026-04",
       "department": "general",
-      "type": {
-        "en": "Full-time",
-        "ar": "دوام كامل"
-      },
-      "title": {
-        "en": "Information Security Analyst",
-        "ar": "محلل/ة أمن معلومات"
-      },
-      "summary": {
-        "en": "Monitor, harden and audit clinical systems in line with NCA ECC and PDPL requirements.",
-        "ar": "مراقبة الأنظمة الطبية وتحصينها وتدقيقها وفق ضوابط الأمن السيبراني الأساسية ونظام حماية البيانات الشخصية."
-      }
+      "type": "Full-time",
+      "title": "Information Security Analyst",
+      "summary": "Monitor, harden and audit clinical systems in line with NCA ECC and PDPL requirements."
     }
   ]
 }

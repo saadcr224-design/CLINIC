@@ -8,6 +8,7 @@
       <a href="/admin">Appointments</a>
       <% if (can('messages:read')) { %><a href="/admin/messages">Inbox</a><% } %>
       <% if (can('audit:read')) { %><a href="/admin/audit">Audit log</a><% } %>
+      <% if (can('messages:read') || can('audit:read')) { %><a href="/admin/photos">Photos</a><% } %>
       <a href="/cms/">Content (CMS)</a>
       <a href="/" target="_blank">View site ↗</a>
     </nav>

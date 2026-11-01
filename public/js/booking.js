@@ -4,7 +4,7 @@
   const form = document.getElementById('booking-form');
   if (!form) return;
   const cfg = window.APP;
-  const L = (f) => (f && typeof f === 'object' ? f[cfg.lang] || f.en : f);
+  const L = (f) => f;
   const dept = form.elements.department;
   const doctorSel = form.elements.doctorChoice;
   const date = form.elements.date;
@@ -47,7 +47,7 @@
       slotsEl.innerHTML = `<p class="muted">${cfg.i18n.pickDate}</p>`;
       return;
     }
-    sum('date', new Date(date.value + 'T12:00:00').toLocaleDateString(cfg.lang === 'ar' ? 'ar-SA-u-ca-gregory' : 'en-GB', { weekday: 'long', day: 'numeric', month: 'long' }));
+    sum('date', new Date(date.value + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }));
     slotsEl.innerHTML = `<p class="muted">${cfg.i18n.loadingSlots}</p>`;
     const q = new URLSearchParams({ date: date.value });
     if (doctorSel.value) q.set('doctor', doctorSel.value);
@@ -134,7 +134,7 @@
         const ok = document.getElementById('booking-success');
         ok.querySelector('.js-ref').textContent = body.ref;
         ok.querySelector('.js-details').textContent = `${body.doctor} · ${body.date} · ${body.time}`;
-        ok.querySelector('.js-fee').textContent = (cfg.lang === 'ar' ? body.fee + ' ريال' : 'SAR ' + body.fee);
+        ok.querySelector('.js-fee').textContent = ('SAR ' + body.fee);
         ok.hidden = false;
         ok.focus();
         window.scrollTo({ top: ok.offsetTop - 120, behavior: 'smooth' });

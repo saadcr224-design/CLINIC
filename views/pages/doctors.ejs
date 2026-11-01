@@ -1,5 +1,5 @@
 <%- include('../partials/header') %>
-<%- include('../partials/pagehead', { heading: t('doctors.title'), lead: t('doctors.lead') }) %>
+<%- include('../partials/pagehead', { heading: t('doctors.title'), lead: t('doctors.lead'), image: site.images.doctors }) %>
 <section class="section">
   <div class="container">
     <form class="filters" method="get" action="<%= url('/doctors') %>" role="search">

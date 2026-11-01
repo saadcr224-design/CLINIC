@@ -1,48 +1,39 @@
 <%- include('head') %>
-<body data-lang="<%= lang %>">
+<body>
 <%- include('icons') %>
 <a class="skip-link" href="#main"><%= t('nav.skip') %></a>
-<div class="topbar">
-  <div class="container topbar-inner">
-    <div class="topbar-info">
-      <a href="tel:<%= site.phone %>"><svg class="ic"><use href="#i-phone"/></svg><span dir="ltr"><%= site.phoneDisplay %></span></a>
-      <span class="hide-sm"><svg class="ic"><use href="#i-clock"/></svg><%= L(site.hours[0].days) %>: <%= L(site.hours[0].time) %></span>
-      <a class="hide-sm" href="mailto:<%= site.email %>"><svg class="ic"><use href="#i-mail"/></svg><%= site.email %></a>
-    </div>
-    <div class="topbar-actions">
-      <a href="https://wa.me/<%= site.whatsapp %>" target="_blank" rel="noopener"><svg class="ic"><use href="#i-whatsapp"/></svg><span class="hide-sm"><%= t('common.whatsapp') %></span></a>
-      <a href="<%= url('/portal') %>"><svg class="ic"><use href="#i-user"/></svg><span class="hide-sm"><%= t('nav.portal') %></span></a>
-      <a class="lang-switch" href="<%= altLangUrl %>" hreflang="<%= lang === 'ar' ? 'en' : 'ar' %>" lang="<%= lang === 'ar' ? 'en' : 'ar' %>"><svg class="ic"><use href="#i-globe"/></svg><%= t('nav.lang') %></a>
-    </div>
-  </div>
-</div>
 <header class="site-header" id="top">
   <div class="container header-inner">
-    <a class="logo" href="<%= url('/') %>" aria-label="<%= L(site.name) %>">
-      <img src="/img/logo.svg" alt="" width="44" height="44">
-      <span><strong><%= L(site.name) %></strong><small><%= lang === 'ar' ? site.name.en : site.name.ar %></small></span>
+    <a class="logo" href="/" aria-label="<%= site.name %> home">
+      <img src="/img/logo.svg" alt="" width="40" height="40">
+      <span><strong><%= site.name %></strong><small>Riyadh · Since 2001</small></span>
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Main">
       <ul>
-        <% [['/', 'nav.home'], ['/about', 'nav.about'], ['/departments', 'nav.departments'], ['/doctors', 'nav.doctors'], ['/blog', 'nav.blog'], ['/contact', 'nav.contact']].forEach(([p, k]) => {
-             const active = p === '/' ? currentPath === '/' : currentPath.startsWith(p); %>
-          <li><a href="<%= url(p) %>"<% if (active) { %> aria-current="page"<% } %>><%= t(k) %></a></li>
+        <% [['/about', 'nav.about'], ['/departments', 'nav.departments'], ['/doctors', 'nav.doctors'], ['/blog', 'nav.blog'], ['/contact', 'nav.contact']].forEach(([p, k]) => { %>
+          <li><a href="<%= p %>"<% if (currentPath.startsWith(p)) { %> aria-current="page"<% } %>><%= t(k) %></a></li>
         <% }) %>
         <li class="has-sub">
           <button type="button" class="sub-toggle" aria-expanded="false"><%= t('nav.more') %></button>
           <ul class="sub">
-            <li><a href="<%= url('/testimonials') %>"><%= t('nav.testimonials') %></a></li>
-            <li><a href="<%= url('/insurance') %>"><%= t('nav.insurance') %></a></li>
-            <li><a href="<%= url('/faq') %>"><%= t('nav.faq') %></a></li>
-            <li><a href="<%= url('/careers') %>"><%= t('nav.careers') %></a></li>
-            <li><a href="<%= url('/portal') %>"><%= t('nav.portal') %></a></li>
+            <li><a href="/insurance"><%= t('nav.insurance') %></a></li>
+            <li><a href="/testimonials"><%= t('nav.testimonials') %></a></li>
+            <li><a href="/faq"><%= t('nav.faq') %></a></li>
+            <li><a href="/careers"><%= t('nav.careers') %></a></li>
+            <li><a href="/portal"><%= t('nav.portal') %></a></li>
           </ul>
         </li>
+        <li class="nav-mobile-only"><a href="/insurance"><%= t('nav.insurance') %></a></li>
+        <li class="nav-mobile-only"><a href="/testimonials"><%= t('nav.testimonials') %></a></li>
+        <li class="nav-mobile-only"><a href="/faq"><%= t('nav.faq') %></a></li>
+        <li class="nav-mobile-only"><a href="/careers"><%= t('nav.careers') %></a></li>
+        <li class="nav-mobile-only"><a href="/portal"><%= t('nav.portal') %></a></li>
       </ul>
     </nav>
     <div class="header-cta">
-      <button type="button" class="btn btn-emergency" data-open="emergency-modal" aria-label="<%= t('emergency.title') %>"><svg class="ic"><use href="#i-ambulance"/></svg><span><%= t('emergency.button') %></span></button>
-      <a class="btn btn-primary hide-md" href="<%= url('/book') %>"><svg class="ic"><use href="#i-calendar"/></svg><%= t('nav.book') %></a>
+      <a class="header-phone" href="tel:<%= site.phone %>"><svg class="ic"><use href="#i-phone"/></svg><span><small>Call us</small><%= site.phoneDisplay %></span></a>
+      <button type="button" class="btn btn-emergency btn-sm" data-open="emergency-modal" aria-label="<%= t('emergency.title') %>"><svg class="ic"><use href="#i-ambulance"/></svg><span><%= t('emergency.button') %></span></button>
+      <a class="btn btn-primary btn-sm hide-sm-down" href="/book"><%= t('nav.book') %></a>
       <button type="button" class="nav-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="<%= t('nav.menu') %>"><svg class="ic"><use href="#i-menu"/></svg></button>
     </div>
   </div>

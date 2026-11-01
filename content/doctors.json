@@ -3,18 +3,9 @@
     {
       "slug": "dr-khalid-al-harbi",
       "department": "cardiology",
-      "name": {
-        "en": "Dr. Khalid Al-Harbi",
-        "ar": "د. خالد الحربي"
-      },
-      "title": {
-        "en": "Consultant Cardiologist",
-        "ar": "استشاري أمراض القلب"
-      },
-      "qualifications": {
-        "en": "MBBS, FRCPC (Canada), Saudi Board of Cardiology",
-        "ar": "بكالوريوس الطب، الزمالة الكندية، البورد السعودي لأمراض القلب"
-      },
+      "name": "Dr. Khalid Al-Harbi",
+      "title": "Consultant Cardiologist",
+      "qualifications": "MBBS, FRCPC (Canada), Saudi Board of Cardiology",
       "experience": 18,
       "languages": [
         "Arabic",
@@ -29,28 +20,16 @@
         "tue",
         "wed"
       ],
-      "bio": {
-        "en": "Dr. Khalid specialises in preventive cardiology and heart failure. He trained at the University of Toronto and has led cardiac rehabilitation programmes for over a decade.",
-        "ar": "يتخصص د. خالد في طب القلب الوقائي وقصور القلب. تدرب في جامعة تورنتو وقاد برامج التأهيل القلبي لأكثر من عشر سنوات."
-      },
+      "bio": "Dr. Khalid specialises in preventive cardiology and heart failure. He trained at the University of Toronto and has led cardiac rehabilitation programmes for over a decade.",
       "photo": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-sarah-al-qahtani",
       "department": "obstetrics-gynecology",
-      "name": {
-        "en": "Dr. Sarah Al-Qahtani",
-        "ar": "د. سارة القحطاني"
-      },
-      "title": {
-        "en": "Consultant Obstetrician & Gynecologist",
-        "ar": "استشارية النساء والولادة"
-      },
-      "qualifications": {
-        "en": "MBBS, MRCOG (UK), Arab Board of Obstetrics & Gynecology",
-        "ar": "بكالوريوس الطب، عضوية الكلية الملكية البريطانية، البورد العربي للنساء والولادة"
-      },
+      "name": "Dr. Sarah Al-Qahtani",
+      "title": "Consultant Obstetrician & Gynecologist",
+      "qualifications": "MBBS, MRCOG (UK), Arab Board of Obstetrics & Gynecology",
       "experience": 15,
       "languages": [
         "Arabic",
@@ -65,28 +44,16 @@
         "tue",
         "thu"
       ],
-      "bio": {
-        "en": "Dr. Sarah leads our antenatal care programme with a special interest in high-risk pregnancy and minimally invasive gynecological surgery.",
-        "ar": "تقود د. سارة برنامج متابعة الحمل لدينا ولها اهتمام خاص بالحمل عالي الخطورة والجراحات النسائية طفيفة التوغل."
-      },
+      "bio": "Dr. Sarah leads our antenatal care programme with a special interest in high-risk pregnancy and minimally invasive gynecological surgery.",
       "photo": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-omar-farooq",
       "department": "orthopedics",
-      "name": {
-        "en": "Dr. Omar Farooq",
-        "ar": "د. عمر فاروق"
-      },
-      "title": {
-        "en": "Consultant Orthopedic Surgeon",
-        "ar": "استشاري جراحة العظام"
-      },
-      "qualifications": {
-        "en": "MBBS, FRCS (Orth), Fellowship in Sports Medicine (Germany)",
-        "ar": "بكالوريوس الطب، زمالة الجراحين الملكية (عظام)، زمالة الطب الرياضي (ألمانيا)"
-      },
+      "name": "Dr. Omar Farooq",
+      "title": "Consultant Orthopedic Surgeon",
+      "qualifications": "MBBS, FRCS (Orth), Fellowship in Sports Medicine (Germany)",
       "experience": 14,
       "languages": [
         "Arabic",
@@ -101,28 +68,16 @@
         "mon",
         "wed"
       ],
-      "bio": {
-        "en": "Dr. Omar focuses on arthroscopic knee and shoulder surgery and helps athletes return to sport with tailored rehabilitation plans.",
-        "ar": "يركز د. عمر على جراحات منظار الركبة والكتف ويساعد الرياضيين على العودة إلى الملاعب بخطط تأهيل مخصصة."
-      },
+      "bio": "Dr. Omar focuses on arthroscopic knee and shoulder surgery and helps athletes return to sport with tailored rehabilitation plans.",
       "photo": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-noura-al-otaibi",
       "department": "pediatrics",
-      "name": {
-        "en": "Dr. Noura Al-Otaibi",
-        "ar": "د. نورة العتيبي"
-      },
-      "title": {
-        "en": "Consultant Pediatrician",
-        "ar": "استشارية طب الأطفال"
-      },
-      "qualifications": {
-        "en": "MBBS, Saudi Board of Pediatrics, Fellowship in Pediatric Allergy",
-        "ar": "بكالوريوس الطب، البورد السعودي لطب الأطفال، زمالة حساسية الأطفال"
-      },
+      "name": "Dr. Noura Al-Otaibi",
+      "title": "Consultant Pediatrician",
+      "qualifications": "MBBS, Saudi Board of Pediatrics, Fellowship in Pediatric Allergy",
       "experience": 12,
       "languages": [
         "Arabic",
@@ -139,28 +94,16 @@
         "wed",
         "thu"
       ],
-      "bio": {
-        "en": "Parents love Dr. Noura's calm, reassuring style. She has a special interest in childhood asthma, food allergies and early development.",
-        "ar": "يحب الآباء أسلوب د. نورة الهادئ والمطمئن. لها اهتمام خاص بربو الأطفال وحساسية الطعام والنمو المبكر."
-      },
+      "bio": "Parents love Dr. Noura's calm, reassuring style. She has a special interest in childhood asthma, food allergies and early development.",
       "photo": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-faisal-al-dosari",
       "department": "dental",
-      "name": {
-        "en": "Dr. Faisal Al-Dosari",
-        "ar": "د. فيصل الدوسري"
-      },
-      "title": {
-        "en": "Consultant Prosthodontist & Implantologist",
-        "ar": "استشاري التركيبات وزراعة الأسنان"
-      },
-      "qualifications": {
-        "en": "BDS, MSc Prosthodontics (King's College London)",
-        "ar": "بكالوريوس طب الأسنان، ماجستير التركيبات (كينجز كوليدج لندن)"
-      },
+      "name": "Dr. Faisal Al-Dosari",
+      "title": "Consultant Prosthodontist & Implantologist",
+      "qualifications": "BDS, MSc Prosthodontics (King's College London)",
       "experience": 11,
       "languages": [
         "Arabic",
@@ -176,28 +119,16 @@
         "wed",
         "thu"
       ],
-      "bio": {
-        "en": "Dr. Faisal combines digital smile design with implant dentistry to restore function and confidence.",
-        "ar": "يجمع د. فيصل بين التصميم الرقمي للابتسامة وزراعة الأسنان لاستعادة الوظيفة والثقة."
-      },
+      "bio": "Dr. Faisal combines digital smile design with implant dentistry to restore function and confidence.",
       "photo": "https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-lina-haddad",
       "department": "dermatology",
-      "name": {
-        "en": "Dr. Lina Haddad",
-        "ar": "د. لينا حداد"
-      },
-      "title": {
-        "en": "Specialist Dermatologist",
-        "ar": "أخصائية الجلدية والتجميل"
-      },
-      "qualifications": {
-        "en": "MD, Arab Board of Dermatology, Diploma in Aesthetic Medicine",
-        "ar": "دكتوراه في الطب، البورد العربي للجلدية، دبلوم الطب التجميلي"
-      },
+      "name": "Dr. Lina Haddad",
+      "title": "Specialist Dermatologist",
+      "qualifications": "MD, Arab Board of Dermatology, Diploma in Aesthetic Medicine",
       "experience": 9,
       "languages": [
         "Arabic",
@@ -213,28 +144,16 @@
         "wed",
         "thu"
       ],
-      "bio": {
-        "en": "Dr. Lina treats chronic skin conditions and pigmentation, and performs laser and rejuvenation procedures with a natural-looking approach.",
-        "ar": "تعالج د. لينا الأمراض الجلدية المزمنة والتصبغات، وتجري إجراءات الليزر ونضارة البشرة بنتائج طبيعية."
-      },
+      "bio": "Dr. Lina treats chronic skin conditions and pigmentation, and performs laser and rejuvenation procedures with a natural-looking approach.",
       "photo": "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-ahmed-siddiqui",
       "department": "internal-medicine",
-      "name": {
-        "en": "Dr. Ahmed Siddiqui",
-        "ar": "د. أحمد صديقي"
-      },
-      "title": {
-        "en": "Consultant Internist & Endocrinologist",
-        "ar": "استشاري الباطنية والغدد الصماء"
-      },
-      "qualifications": {
-        "en": "MBBS, MRCP (UK), CCT Endocrinology & Diabetes",
-        "ar": "بكالوريوس الطب، عضوية الكلية الملكية للأطباء، شهادة التخصص في الغدد والسكري"
-      },
+      "name": "Dr. Ahmed Siddiqui",
+      "title": "Consultant Internist & Endocrinologist",
+      "qualifications": "MBBS, MRCP (UK), CCT Endocrinology & Diabetes",
       "experience": 20,
       "languages": [
         "Arabic",
@@ -251,28 +170,16 @@
         "tue",
         "wed"
       ],
-      "bio": {
-        "en": "Dr. Ahmed runs our diabetes and thyroid clinics and has helped thousands of patients achieve long-term control of chronic conditions.",
-        "ar": "يدير د. أحمد عيادات السكري والغدة الدرقية وساعد آلاف المرضى على التحكم طويل الأمد في أمراضهم المزمنة."
-      },
+      "bio": "Dr. Ahmed runs our diabetes and thyroid clinics and has helped thousands of patients achieve long-term control of chronic conditions.",
       "photo": "https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     },
     {
       "slug": "dr-maha-al-shehri",
       "department": "ophthalmology",
-      "name": {
-        "en": "Dr. Maha Al-Shehri",
-        "ar": "د. مها الشهري"
-      },
-      "title": {
-        "en": "Consultant Ophthalmologist",
-        "ar": "استشارية طب وجراحة العيون"
-      },
-      "qualifications": {
-        "en": "MBBS, Saudi Board of Ophthalmology, Fellowship in Cornea & Refractive Surgery",
-        "ar": "بكالوريوس الطب، البورد السعودي لطب العيون، زمالة القرنية وتصحيح النظر"
-      },
+      "name": "Dr. Maha Al-Shehri",
+      "title": "Consultant Ophthalmologist",
+      "qualifications": "MBBS, Saudi Board of Ophthalmology, Fellowship in Cornea & Refractive Surgery",
       "experience": 13,
       "languages": [
         "Arabic",
@@ -287,10 +194,7 @@
         "wed",
         "thu"
       ],
-      "bio": {
-        "en": "Dr. Maha specialises in cataract and refractive surgery and is passionate about early screening for diabetic eye disease.",
-        "ar": "تتخصص د. مها في جراحة المياه البيضاء وتصحيح النظر، وتهتم بالفحص المبكر لاعتلال الشبكية السكري."
-      },
+      "bio": "Dr. Maha specialises in cataract and refractive surgery and is passionate about early screening for diabetic eye disease.",
       "photo": "https://images.unsplash.com/photo-1614608682850-e0d6ed316d47?auto=format&fit=crop&w=600&h=700&q=70",
       "video": ""
     }

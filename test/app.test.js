@@ -54,14 +54,19 @@ function nextClinicDay(doctorDays) {
   }
 }
 
-test('public pages render in English and Arabic', async () => {
+test('public pages render, every page has a photo header, old /ar links redirect', async () => {
   const req = client();
-  for (const p of ['/', '/ar', '/doctors', '/ar/departments/cardiology', '/blog/know-your-blood-pressure-numbers', '/faq', '/sitemap.xml']) {
+  for (const p of ['/', '/about', '/doctors', '/doctors/dr-khalid-al-harbi', '/departments', '/departments/cardiology', '/book', '/contact', '/blog',
+    '/blog/know-your-blood-pressure-numbers', '/testimonials', '/faq', '/careers', '/insurance', '/privacy', '/terms', '/data-protection', '/portal/login']) {
     const res = await req(p);
     assert.equal(res.status, 200, p);
+    const html = await res.text();
+    assert.match(html, /class="(hero-bg|page-hero-bg)" src="https:\/\/images\.unsplash\.com\//, `${p} has a photo background`);
+    assert.doesNotMatch(html, /undefined|\[object Object\]/, `${p} has no template gaps`);
   }
-  const ar = await (await req('/ar')).text();
-  assert.match(ar, /<html lang="ar" dir="rtl">/);
+  const old = await req('/ar/doctors');
+  assert.equal(old.status, 301);
+  assert.equal(old.headers.get('location'), '/doctors');
   assert.equal((await req('/does-not-exist')).status, 404);
 });
 
@@ -161,8 +166,25 @@ test('encryption round-trips and detects modification', () => {
   assert.throws(() => decrypt(buf.toString('base64')));
 });
 
-test('chatbot flags emergencies and answers in Arabic', () => {
-  assert.equal(chatbot.reply('I have chest pain', 'en').urgent, true);
-  assert.match(chatbot.reply('ساعات العمل', 'ar').reply, /السبت/);
-  assert.ok(chatbot.reply('dentist appointment', 'en').actions.some((a) => a.url.includes('dental') || a.url.includes('/book')));
+test('chatbot flags emergencies and routes common questions', () => {
+  assert.equal(chatbot.reply('I have chest pain').urgent, true);
+  assert.match(chatbot.reply('what are your opening hours?').reply, /Saturday/);
+  assert.ok(chatbot.reply('I need a dentist').actions.some((a) => a.url.includes('dental')));
+  assert.ok(chatbot.reply('Do you take Bupa insurance?').actions.some((a) => a.url === '/insurance'));
+});
+
+test('automation sends one reminder 24h before and one review request after a visit', () => {
+  const store = require('../src/store');
+  const automation = require('../src/automation');
+  const now = Date.parse('2026-06-01T09:00:00+03:00');
+  const base = { doctor: 'dr-khalid-al-harbi', patient: { name: 'A B', phone: '0500000000', email: 'a@b.co' }, whatsappReminders: true };
+  const soon = store.insert('appointments', { ...base, ref: 'T-1', status: 'confirmed', date: '2026-06-02', time: '08:00' });
+  const later = store.insert('appointments', { ...base, ref: 'T-2', status: 'confirmed', date: '2026-06-05', time: '08:00' });
+  const done = store.insert('appointments', { ...base, ref: 'T-3', status: 'completed', date: '2026-05-31', time: '16:00' });
+  const first = automation.run(now);
+  assert.deepEqual(first, { reminders: 1, reviews: 1 });
+  assert.ok(store.all('appointments').find((a) => a.id === soon.id).reminderSentAt);
+  assert.ok(!store.all('appointments').find((a) => a.id === later.id).reminderSentAt);
+  assert.ok(store.all('appointments').find((a) => a.id === done.id).reviewRequestedAt);
+  assert.deepEqual(automation.run(now), { reminders: 0, reviews: 0 }, 'nothing is sent twice');
 });

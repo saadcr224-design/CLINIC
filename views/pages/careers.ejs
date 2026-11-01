@@ -12,7 +12,7 @@
         <article class="job-card">
           <div>
             <h3><%= L(j.title) %></h3>
-            <p class="job-meta"><span class="tag"><%= jd ? L(jd.name) : (lang === 'ar' ? 'الإدارة' : 'Administration') %></span><span><%= L(j.type) %></span><span><svg class="ic"><use href="#i-pin"/></svg><%= lang === 'ar' ? 'الرياض' : 'Riyadh' %></span></p>
+            <p class="job-meta"><span class="tag"><%= jd ? L(jd.name) : 'Administration' %></span><span><%= L(j.type) %></span><span><svg class="ic"><use href="#i-pin"/></svg><%= 'Riyadh' %></span></p>
             <p><%= L(j.summary) %></p>
           </div>
           <a class="btn btn-outline js-apply" href="#apply" data-job="<%= j.id %>"><%= t('careers.apply') %></a>
@@ -29,7 +29,7 @@
         <label for="j-job"><%= t('careers.open') %> *</label>
         <select id="j-job" name="job" required>
           <% jobs.forEach(j => { %><option value="<%= j.id %>"><%= L(j.title) %></option><% }) %>
-          <option value="general"><%= lang === 'ar' ? 'طلب عام' : 'General application' %></option>
+          <option value="general"><%= 'General application' %></option>
         </select>
       </div>
       <div class="row-2">

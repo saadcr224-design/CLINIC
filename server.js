@@ -28,8 +28,8 @@ app.use((req, res, next) => {
 const cspDirectives = {
   defaultSrc: ["'self'"],
   scriptSrc: ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`, 'https://www.googletagmanager.com'],
-  styleSrc: ["'self'", 'https://fonts.googleapis.com'],
-  fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+  styleSrc: ["'self'"],
+  fontSrc: ["'self'"],
   imgSrc: ["'self'", 'data:', 'https://images.unsplash.com', 'https://*.google-analytics.com', 'https://*.googletagmanager.com'],
   connectSrc: ["'self'", 'https://*.google-analytics.com', 'https://*.analytics.google.com', 'https://*.googletagmanager.com'],
   frameSrc: ['https://www.google.com', 'https://maps.google.com', 'https://www.youtube-nocookie.com'],
@@ -46,7 +46,7 @@ const cmsHelmet = helmet({
     directives: {
       ...cspDirectives,
       scriptSrc: ["'self'", "'unsafe-eval'", 'https://unpkg.com'],
-      styleSrc: ["'self'", "'unsafe-inline'", 'https://unpkg.com', 'https://fonts.googleapis.com'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
       connectSrc: ["'self'", 'https://api.github.com', 'https://unpkg.com'],
       imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
       frameSrc: ["'self'"],
@@ -114,9 +114,9 @@ const ASSET_VERSION = Date.now().toString(36);
 app.use(require('./src/seo'));
 app.use('/api', require('./src/routes/api'));
 app.use('/admin', i18n.middleware, require('./src/routes/admin'));
-for (const base of ['/ar', '/']) {
-  app.use(base, i18n.middleware, require('./src/routes/portal'), pages, notFound);
-}
+// The site used to have an Arabic version under /ar; keep old links working.
+app.get(/^\/ar(\/.*)?$/, (req, res) => res.redirect(301, req.params[0] || '/'));
+app.use(i18n.middleware, require('./src/routes/portal'), pages, notFound);
 
 // ---------- Errors: never leak stack traces to users ----------
 // eslint-disable-next-line no-unused-vars
@@ -128,6 +128,7 @@ app.use((err, req, res, next) => {
 
 async function start() {
   if (!config.isProd) await auth.seedDemoUsers();
+  require('./src/automation').start();
   return app.listen(config.port, () => console.log(`Clinic site running on http://localhost:${config.port}`));
 }
 

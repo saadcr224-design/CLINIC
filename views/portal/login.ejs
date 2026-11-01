@@ -1,10 +1,10 @@
 <%- include('../partials/header') %>
+<%- include('../partials/pagehead', { heading: t('portal.title'), lead: t('portal.lead'), image: site.images.portal }) %>
 <section class="section auth-section">
   <div class="container auth-grid">
     <form class="card auth-card" method="post" action="<%= url('/portal/login') %>">
       <span class="feature-icon"><svg class="ic"><use href="#i-lock"/></svg></span>
-      <h1><%= t('portal.title') %></h1>
-      <p class="muted"><%= t('portal.lead') %></p>
+      <h2><%= t('portal.login') %></h2>
       <% if (error) { %><p class="alert" role="alert"><%= error %></p><% } %>
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <input type="hidden" name="next" value="<%= next %>">

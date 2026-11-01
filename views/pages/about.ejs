@@ -24,7 +24,7 @@
         <% }) %>
       </ol>
     </div>
-    <div class="split-media"><img src="<%= site.images.team %>" srcset="<%= srcset(site.images.team, [600, 1000]) %>" sizes="(max-width: 900px) 100vw, 50vw" alt="<%= lang === 'ar' ? 'فريقنا الطبي' : 'Our medical team' %>" loading="lazy" width="700" height="520"></div>
+    <div class="split-media"><img src="<%= site.images.why %>" srcset="<%= srcset(site.images.why, [600, 1000]) %>" sizes="(max-width: 900px) 100vw, 50vw" alt="<%= 'Our medical team' %>" loading="lazy" width="700" height="520"></div>
   </div>
 </section>
 <section class="section section-alt">
@@ -32,8 +32,8 @@
     <h2><%= t('about.facilityTitle') %></h2>
     <div class="gallery">
       <% ['facility1', 'facility2', 'facility3', 'facility4'].forEach((k, i) => {
-           const alts = { en: ['Patient room', 'Operating theatre', 'Inpatient suite', 'Clinical team at work'], ar: ['غرفة المريض', 'غرفة العمليات', 'جناح التنويم', 'الفريق الطبي أثناء العمل'] }; %>
-        <figure><img src="<%= site.images[k] %>" srcset="<%= srcset(site.images[k], [400, 900]) %>" sizes="(max-width: 700px) 50vw, 25vw" alt="<%= alts[lang][i] %>" loading="lazy" width="450" height="320"><figcaption><%= alts[lang][i] %></figcaption></figure>
+           const alts = ['Patient room', 'Operating theatre', 'Inpatient suite', 'Clinical team at work']; %>
+        <figure><img src="<%= site.images[k] %>" srcset="<%= srcset(site.images[k], [400, 900]) %>" sizes="(max-width: 700px) 50vw, 25vw" alt="<%= alts[i] %>" loading="lazy" width="450" height="320"><figcaption><%= alts[i] %></figcaption></figure>
       <% }) %>
     </div>
   </div>

@@ -3,282 +3,130 @@
     {
       "slug": "cardiology",
       "icon": "heart",
-      "name": {
-        "en": "Cardiology",
-        "ar": "أمراض القلب"
-      },
-      "summary": {
-        "en": "Diagnosis and treatment of heart and vascular conditions, from prevention to advanced cardiac care.",
-        "ar": "تشخيص وعلاج أمراض القلب والأوعية الدموية، من الوقاية إلى الرعاية القلبية المتقدمة."
-      },
-      "description": {
-        "en": "Our cardiology team combines non-invasive diagnostics with evidence-based treatment plans. We manage hypertension, coronary artery disease, arrhythmias and heart failure, and run a dedicated cardiac rehabilitation programme to get patients back to everyday life safely.",
-        "ar": "يجمع فريق القلب لدينا بين الفحوصات التشخيصية غير الجراحية وخطط العلاج المبنية على الأدلة. نعالج ارتفاع ضغط الدم وأمراض الشرايين التاجية واضطرابات النظم وقصور القلب، ونقدم برنامجاً متخصصاً لإعادة التأهيل القلبي."
-      },
-      "services": {
-        "en": [
-          "ECG & Holter monitoring",
-          "Echocardiography",
-          "Stress testing",
-          "Hypertension clinic",
-          "Cardiac rehabilitation",
-          "Lipid management"
-        ],
-        "ar": [
-          "تخطيط القلب وجهاز هولتر",
-          "تصوير القلب بالموجات (الإيكو)",
-          "اختبار الجهد",
-          "عيادة ضغط الدم",
-          "التأهيل القلبي",
-          "علاج الدهون"
-        ]
-      },
+      "name": "Cardiology",
+      "summary": "Diagnosis and treatment of heart and vascular conditions, from prevention to advanced cardiac care.",
+      "description": "Our cardiology team combines non-invasive diagnostics with evidence-based treatment plans. We manage hypertension, coronary artery disease, arrhythmias and heart failure, and run a dedicated cardiac rehabilitation programme to get patients back to everyday life safely.",
+      "services": [
+        "ECG & Holter monitoring",
+        "Echocardiography",
+        "Stress testing",
+        "Hypertension clinic",
+        "Cardiac rehabilitation",
+        "Lipid management"
+      ],
       "image": "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "dental",
       "icon": "tooth",
-      "name": {
-        "en": "Dental Care",
-        "ar": "طب الأسنان"
-      },
-      "summary": {
-        "en": "General, cosmetic and orthodontic dentistry for the whole family in a calm, modern setting.",
-        "ar": "طب الأسنان العام والتجميلي والتقويم لجميع أفراد الأسرة في بيئة هادئة وحديثة."
-      },
-      "description": {
-        "en": "From routine check-ups and hygiene to implants, clear aligners and smile design, our dental clinic uses digital X-rays and intra-oral scanning for precise, comfortable treatment.",
-        "ar": "من الفحوصات الدورية وتنظيف الأسنان إلى الزراعة والتقويم الشفاف وتصميم الابتسامة، تستخدم عيادتنا الأشعة الرقمية والماسح الضوئي داخل الفم لعلاج دقيق ومريح."
-      },
-      "services": {
-        "en": [
-          "Check-ups & cleaning",
-          "Fillings & root canal",
-          "Dental implants",
-          "Clear aligners & braces",
-          "Teeth whitening",
-          "Pediatric dentistry"
-        ],
-        "ar": [
-          "الفحص والتنظيف",
-          "الحشوات وعلاج العصب",
-          "زراعة الأسنان",
-          "التقويم الشفاف والتقليدي",
-          "تبييض الأسنان",
-          "طب أسنان الأطفال"
-        ]
-      },
+      "name": "Dental Care",
+      "summary": "General, cosmetic and orthodontic dentistry for the whole family in a calm, modern setting.",
+      "description": "From routine check-ups and hygiene to implants, clear aligners and smile design, our dental clinic uses digital X-rays and intra-oral scanning for precise, comfortable treatment.",
+      "services": [
+        "Check-ups & cleaning",
+        "Fillings & root canal",
+        "Dental implants",
+        "Clear aligners & braces",
+        "Teeth whitening",
+        "Pediatric dentistry"
+      ],
       "image": "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "pediatrics",
       "icon": "child",
-      "name": {
-        "en": "Pediatrics",
-        "ar": "طب الأطفال"
-      },
-      "summary": {
-        "en": "Gentle, expert care for newborns, children and teenagers, including vaccinations and growth monitoring.",
-        "ar": "رعاية لطيفة ومتخصصة لحديثي الولادة والأطفال والمراهقين، تشمل التطعيمات ومتابعة النمو."
-      },
-      "description": {
-        "en": "Our child-friendly clinic follows the national vaccination schedule and offers well-baby visits, developmental assessments, allergy and asthma care, and same-day appointments for sick children.",
-        "ar": "تتبع عيادتنا الملائمة للأطفال جدول التطعيمات الوطني وتقدم زيارات متابعة الطفل السليم وتقييم النمو والتطور ورعاية الحساسية والربو ومواعيد في نفس اليوم للأطفال المرضى."
-      },
-      "services": {
-        "en": [
-          "Newborn & well-baby visits",
-          "Vaccinations",
-          "Growth & development",
-          "Asthma & allergy",
-          "Nutrition counselling",
-          "Same-day sick visits"
-        ],
-        "ar": [
-          "زيارات حديثي الولادة",
-          "التطعيمات",
-          "متابعة النمو والتطور",
-          "الربو والحساسية",
-          "الاستشارات الغذائية",
-          "زيارات مرضية في نفس اليوم"
-        ]
-      },
-      "image": "https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?auto=format&fit=crop&w=1200&q=70"
+      "name": "Pediatrics",
+      "summary": "Gentle, expert care for newborns, children and teenagers, including vaccinations and growth monitoring.",
+      "description": "Our child-friendly clinic follows the national vaccination schedule and offers well-baby visits, developmental assessments, allergy and asthma care, and same-day appointments for sick children.",
+      "services": [
+        "Newborn & well-baby visits",
+        "Vaccinations",
+        "Growth & development",
+        "Asthma & allergy",
+        "Nutrition counselling",
+        "Same-day sick visits"
+      ],
+      "image": "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "orthopedics",
       "icon": "bone",
-      "name": {
-        "en": "Orthopedics",
-        "ar": "جراحة العظام"
-      },
-      "summary": {
-        "en": "Bone, joint and sports-injury care, from physiotherapy to joint replacement.",
-        "ar": "علاج العظام والمفاصل وإصابات الملاعب، من العلاج الطبيعي إلى استبدال المفاصل."
-      },
-      "description": {
-        "en": "We treat back and neck pain, fractures, arthritis and sports injuries with a step-by-step approach that starts with conservative care and physiotherapy and moves to minimally invasive surgery only when needed.",
-        "ar": "نعالج آلام الظهر والرقبة والكسور والتهاب المفاصل وإصابات الملاعب بنهج تدريجي يبدأ بالعلاج التحفظي والعلاج الطبيعي، ولا ننتقل إلى الجراحة طفيفة التوغل إلا عند الحاجة."
-      },
-      "services": {
-        "en": [
-          "Sports injuries",
-          "Arthroscopy",
-          "Joint replacement",
-          "Spine care",
-          "Fracture clinic",
-          "Physiotherapy"
-        ],
-        "ar": [
-          "إصابات الملاعب",
-          "المنظار المفصلي",
-          "استبدال المفاصل",
-          "علاج العمود الفقري",
-          "عيادة الكسور",
-          "العلاج الطبيعي"
-        ]
-      },
-      "image": "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=1200&q=70"
+      "name": "Orthopedics",
+      "summary": "Bone, joint and sports-injury care, from physiotherapy to joint replacement.",
+      "description": "We treat back and neck pain, fractures, arthritis and sports injuries with a step-by-step approach that starts with conservative care and physiotherapy and moves to minimally invasive surgery only when needed.",
+      "services": [
+        "Sports injuries",
+        "Arthroscopy",
+        "Joint replacement",
+        "Spine care",
+        "Fracture clinic",
+        "Physiotherapy"
+      ],
+      "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "dermatology",
       "icon": "skin",
-      "name": {
-        "en": "Dermatology",
-        "ar": "الجلدية والتجميل"
-      },
-      "summary": {
-        "en": "Medical and aesthetic skin, hair and nail treatments by board-certified dermatologists.",
-        "ar": "علاجات طبية وتجميلية للبشرة والشعر والأظافر على يد أطباء جلدية معتمدين."
-      },
-      "description": {
-        "en": "We diagnose and treat acne, eczema, psoriasis, pigmentation and hair loss, and offer evidence-based aesthetic procedures including laser therapy and skin-rejuvenation treatments.",
-        "ar": "نشخص ونعالج حب الشباب والإكزيما والصدفية والتصبغات وتساقط الشعر، ونقدم إجراءات تجميلية مثبتة علمياً تشمل العلاج بالليزر ونضارة البشرة."
-      },
-      "services": {
-        "en": [
-          "Acne & scars",
-          "Eczema & psoriasis",
-          "Pigmentation",
-          "Hair loss clinic",
-          "Laser therapy",
-          "Skin cancer screening"
-        ],
-        "ar": [
-          "حب الشباب والندبات",
-          "الإكزيما والصدفية",
-          "التصبغات",
-          "عيادة تساقط الشعر",
-          "العلاج بالليزر",
-          "فحص سرطان الجلد"
-        ]
-      },
+      "name": "Dermatology",
+      "summary": "Medical and aesthetic skin, hair and nail treatments by board-certified dermatologists.",
+      "description": "We diagnose and treat acne, eczema, psoriasis, pigmentation and hair loss, and offer evidence-based aesthetic procedures including laser therapy and skin-rejuvenation treatments.",
+      "services": [
+        "Acne & scars",
+        "Eczema & psoriasis",
+        "Pigmentation",
+        "Hair loss clinic",
+        "Laser therapy",
+        "Skin cancer screening"
+      ],
       "image": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "obstetrics-gynecology",
       "icon": "women",
-      "name": {
-        "en": "Obstetrics & Gynecology",
-        "ar": "النساء والولادة"
-      },
-      "summary": {
-        "en": "Women's health at every stage: pregnancy care, fertility advice and gynecological treatment.",
-        "ar": "صحة المرأة في كل مراحلها: متابعة الحمل والاستشارات الإنجابية وعلاج أمراض النساء."
-      },
-      "description": {
-        "en": "Our all-female obstetrics and gynecology team provides antenatal care with 4D ultrasound, family-planning advice, menopause care and minimally invasive gynecological surgery.",
-        "ar": "يقدم فريقنا النسائي بالكامل متابعة الحمل مع الموجات فوق الصوتية رباعية الأبعاد واستشارات تنظيم الأسرة ورعاية سن اليأس والجراحات النسائية طفيفة التوغل."
-      },
-      "services": {
-        "en": [
-          "Antenatal care",
-          "4D ultrasound",
-          "Fertility consultation",
-          "PCOS clinic",
-          "Menopause care",
-          "Well-woman screening"
-        ],
-        "ar": [
-          "متابعة الحمل",
-          "الموجات رباعية الأبعاد",
-          "استشارات الخصوبة",
-          "عيادة تكيس المبايض",
-          "رعاية سن اليأس",
-          "الفحص الدوري للمرأة"
-        ]
-      },
+      "name": "Obstetrics & Gynecology",
+      "summary": "Women's health at every stage: pregnancy care, fertility advice and gynecological treatment.",
+      "description": "Our all-female obstetrics and gynecology team provides antenatal care with 4D ultrasound, family-planning advice, menopause care and minimally invasive gynecological surgery.",
+      "services": [
+        "Antenatal care",
+        "4D ultrasound",
+        "Fertility consultation",
+        "PCOS clinic",
+        "Menopause care",
+        "Well-woman screening"
+      ],
       "image": "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "internal-medicine",
       "icon": "stethoscope",
-      "name": {
-        "en": "Internal Medicine",
-        "ar": "الباطنية"
-      },
-      "summary": {
-        "en": "Comprehensive adult care for diabetes, thyroid, digestive and chronic conditions.",
-        "ar": "رعاية شاملة للبالغين لمرضى السكري والغدة الدرقية والجهاز الهضمي والأمراض المزمنة."
-      },
-      "description": {
-        "en": "Internists coordinate your overall health: annual check-ups, chronic disease management, and referrals to the right specialist. Our diabetes education programme is run with certified diabetes educators and dietitians.",
-        "ar": "ينسق أطباء الباطنية رعايتك الصحية بشكل متكامل: الفحوصات السنوية وإدارة الأمراض المزمنة والتحويل إلى الاستشاري المناسب. ويدير برنامج التثقيف السكري لدينا مثقفون معتمدون واختصاصيو تغذية."
-      },
-      "services": {
-        "en": [
-          "Annual health check",
-          "Diabetes clinic",
-          "Thyroid disorders",
-          "Gastroenterology",
-          "Respiratory care",
-          "Travel medicine"
-        ],
-        "ar": [
-          "الفحص الصحي السنوي",
-          "عيادة السكري",
-          "أمراض الغدة الدرقية",
-          "الجهاز الهضمي",
-          "أمراض الجهاز التنفسي",
-          "طب السفر"
-        ]
-      },
+      "name": "Internal Medicine",
+      "summary": "Comprehensive adult care for diabetes, thyroid, digestive and chronic conditions.",
+      "description": "Internists coordinate your overall health: annual check-ups, chronic disease management, and referrals to the right specialist. Our diabetes education programme is run with certified diabetes educators and dietitians.",
+      "services": [
+        "Annual health check",
+        "Diabetes clinic",
+        "Thyroid disorders",
+        "Gastroenterology",
+        "Respiratory care",
+        "Travel medicine"
+      ],
       "image": "https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=1200&q=70"
     },
     {
       "slug": "ophthalmology",
       "icon": "eye",
-      "name": {
-        "en": "Ophthalmology",
-        "ar": "طب العيون"
-      },
-      "summary": {
-        "en": "Eye exams, cataract and LASIK assessment, and care for glaucoma and diabetic eye disease.",
-        "ar": "فحص النظر وتقييم المياه البيضاء والليزك وعلاج الجلوكوما واعتلال الشبكية السكري."
-      },
-      "description": {
-        "en": "Using OCT imaging and computerised visual-field testing, our ophthalmologists detect eye disease early and provide treatment from glasses prescriptions to cataract surgery.",
-        "ar": "باستخدام التصوير المقطعي البصري وفحص المجال البصري المحوسب، يكتشف أطباء العيون لدينا الأمراض مبكراً ويقدمون العلاج من وصف النظارات إلى جراحة المياه البيضاء."
-      },
-      "services": {
-        "en": [
-          "Comprehensive eye exam",
-          "Cataract surgery",
-          "LASIK assessment",
-          "Glaucoma clinic",
-          "Diabetic retinopathy",
-          "Pediatric eye care"
-        ],
-        "ar": [
-          "فحص العين الشامل",
-          "جراحة المياه البيضاء",
-          "تقييم الليزك",
-          "عيادة الجلوكوما",
-          "اعتلال الشبكية السكري",
-          "عيون الأطفال"
-        ]
-      },
-      "image": "https://images.unsplash.com/photo-1551601651-bc60f254d532?auto=format&fit=crop&w=1200&q=70"
+      "name": "Ophthalmology",
+      "summary": "Eye exams, cataract and LASIK assessment, and care for glaucoma and diabetic eye disease.",
+      "description": "Using OCT imaging and computerised visual-field testing, our ophthalmologists detect eye disease early and provide treatment from glasses prescriptions to cataract surgery.",
+      "services": [
+        "Comprehensive eye exam",
+        "Cataract surgery",
+        "LASIK assessment",
+        "Glaucoma clinic",
+        "Diabetic retinopathy",
+        "Pediatric eye care"
+      ],
+      "image": "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=1200&q=70"
     }
   ]
 }

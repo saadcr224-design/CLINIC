@@ -54,6 +54,20 @@ router.get('/messages', permit('messages:read'), (req, res) => {
   res.render('admin/messages', { title: 'Inbox', ...sets });
 });
 
+// Every photo the site uses, so staff can check each one loads and shows the right subject.
+router.get('/photos', permit('messages:read', 'audit:read'), (req, res) => {
+  const site = content.site();
+  const photos = [
+    ...Object.entries(site.images).map(([k, src]) => ({ src, where: `Site · ${k}` })),
+    ...content.departments().map((d) => ({ src: d.image, where: `Department · ${d.name}` })),
+    ...content.doctors().map((d) => ({ src: d.photo, where: `Doctor · ${d.name}` })),
+    ...content.posts().map((p) => ({ src: p.image, where: `Article · ${p.title}` })),
+    ...site.fallbackImages.map((src, i) => ({ src, where: `Backup photo ${i + 1}` })),
+    ...site.fallbackPortraits.map((src, i) => ({ src, where: `Backup portrait ${i + 1}` })),
+  ];
+  res.render('admin/photos', { title: 'Photo check', photos });
+});
+
 router.get('/audit', permit('audit:read'), (req, res) => {
   const integrity = audit.verify();
   const entries = audit.readEntries().slice(-300).reverse();
