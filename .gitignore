@@ -151,3 +151,8 @@ vite.config.ts.timestamp-*
 # Runtime patient data, audit logs and secrets - never commit
 data/
 .env
+
+# Next.js
+.next/
+next-env.d.ts
+.vercel

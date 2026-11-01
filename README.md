@@ -1,9 +1,10 @@
-# Wahat Medical Center: clinic website
+# Wahat Medical Center: clinic website (React / Next.js)
 
-A clean, fast, photo-led clinic website with online booking, automated patient messaging,
-a patient portal, a staff console, a chat assistant, and security controls suited to health data.
-Built with Node.js + Express and server-rendered EJS templates. It needs no database server
-to try out.
+A clean, fast, photo-led clinic website built with **React** on **[Next.js](https://nextjs.org)**
+(App Router). It includes online booking, automated patient messaging, a patient portal, a staff
+console, a chat assistant, and security controls suited to health data. Pages are rendered on the
+server for speed and SEO, and interactive parts (booking, chat, emergency, forms) are React client
+components.
 
 > **Placeholder content.** The clinic name, phone numbers, licence numbers, doctors, reviews,
 > stats and accreditation badges are sample data. Replace them with your real details before
@@ -13,11 +14,26 @@ to try out.
 
 ```bash
 npm install
-npm start            # http://localhost:3000
-npm test             # API, security and RBAC tests
+npm run dev          # development server on http://localhost:3000
+npm test             # unit tests (booking, security, RBAC, audit, automation)
 ```
 
-In development, demo accounts are created automatically and listed on `/portal/login`:
+Production build:
+
+```bash
+npm run build
+npm start
+```
+
+Browser smoke test against a running site (needs demo accounts on):
+
+```bash
+BASE_URL=http://localhost:3000 npm run test:e2e
+```
+
+Demo accounts are on in development (`npm run dev`) and listed on `/portal/login`. In production
+they're off unless you set `DEMO_ACCOUNTS=true`, which is handy for a demo deployment. Turn it off
+before real patients use the site.
 
 | Role | Email | Password |
 |---|---|---|
@@ -26,8 +42,7 @@ In development, demo accounts are created automatically and listed on `/portal/l
 | doctor | doctor@demo.local | `Doctor#Demo2026` |
 | admin | admin@demo.local | `Admin#Demo2026!` |
 
-Demo accounts are **not** created when `NODE_ENV=production`. Create real ones with
-`CLINIC_NEW_PASSWORD=... npm run seed -- you@clinic.sa "Your Name" admin`.
+Create real accounts with `CLINIC_NEW_PASSWORD=... npm run seed -- you@clinic.sa "Your Name" admin`.
 
 ## What's included
 
@@ -52,8 +67,8 @@ Data Protection notice · 404/500 pages.
 - **Reviews** with star ratings. Submissions are held for moderation.
 - **Newsletter signup**, careers applications, Google Maps embed with directions.
 - **CMS**: `/cms/` runs [Decap CMS](https://decapcms.org) on top of the JSON files in `content/`, so staff
-  can edit doctors, departments, articles, FAQs, reviews, jobs and insurers without a developer.
-  The site reloads content files automatically when they change.
+  can edit doctors, departments, articles, FAQs, reviews, jobs, insurers, photos and legal text
+  (`content/legal/*.html`) without a developer. Each save is a git commit, which redeploys the site.
 
 **SEO**: per-page titles and descriptions, canonical URLs,
 Open Graph, `sitemap.xml`, `robots.txt`, and JSON-LD (`MedicalClinic`,
@@ -64,11 +79,11 @@ Open Graph, `sitemap.xml`, `robots.txt`, and JSON-LD (`MedicalClinic`,
 focus-trapped modal, `aria-live` status messages, alt text, reduced-motion support, and
 readable font sizes and contrast.
 
-**Performance**: server-rendered HTML, gzip compression, a self-hosted font (no third-party font
-requests), the hero photo preloaded, responsive `srcset` images with lazy loading below the fold,
-one CSS and one small JS file with no frameworks, and long cache headers in production.
+**Performance**: server-rendered React (HTML arrives ready to read; about 105 kB of shared JS),
+a self-hosted variable font (no third-party font requests), responsive `srcset` images with lazy
+loading below the fold, automatic code splitting per page, and long cache headers for static assets.
 
-**Automation** (`src/automation.js`, runs every 10 minutes inside the app):
+**Automation** (`lib/automation.js`; started by `instrumentation.js` every 10 minutes on a normal server, or daily by Vercel Cron):
 - Instant booking confirmation by SMS, WhatsApp and email.
 - Reminder 24 hours before each appointment, sent once.
 - Review request 2 to 72 hours after a visit is marked *completed*.
@@ -80,22 +95,23 @@ one CSS and one small JS file with no frameworks, and long cache headers in prod
 | Area | Implementation |
 |---|---|
 | Encryption in transit | HTTPS enforced via HSTS (preload) and `upgrade-insecure-requests`. Terminate TLS at your load balancer/WAF. |
-| Encryption at rest | All patient records (appointments, messages, users, ambulance requests…) are stored AES-256-GCM encrypted (`src/crypto.js`, `src/store.js`). The key comes from `DATA_KEY`. |
-| Access control | Role-based: `patient`, `doctor` (own patients only), `reception`, `admin` (`src/auth.js`). bcrypt password hashes, a fresh session on login, 15-minute idle timeout, signed `__Host-` HttpOnly/Secure/SameSite cookie sessions (no server-side session store needed). |
-| Audit logging | Every login, failure, denied access, record view and change is written to a SHA-256 hash-chained log (`src/audit.js`). The admin view verifies the chain and flags tampering. |
-| Forms | CSRF tokens, CAPTCHA + honeypot, server-side validation (Saudi ID/Iqama, phone, email…), body size limits, per-IP rate limits, login throttling. |
-| Headers | Strict CSP with nonces, `frame-ancestors 'none'`, nosniff, Referrer-Policy, Permissions-Policy, no `X-Powered-By`. |
+| Encryption at rest | All patient records (appointments, messages, users, ambulance requests…) are stored AES-256-GCM encrypted (`lib/crypto.js`, `lib/store.js`). The key comes from `DATA_KEY`. |
+| Access control | Role-based: `patient`, `doctor` (own patients only), `reception`, `admin` (`lib/auth.js`), checked on every staff page and API route. bcrypt password hashes, a fresh session on login, 15-minute idle timeout, encrypted `__Host-` HttpOnly/Secure/SameSite cookie sessions (iron-session, no server-side store needed). |
+| Audit logging | Every login, failure, denied access, record view and change is written to a SHA-256 hash-chained log (`lib/audit.js`). The admin view verifies the chain and flags tampering. |
+| Forms | CSRF tokens, CAPTCHA + honeypot (single-use, stored as a keyed hash), JSON-only API with body size limits, server-side validation (Saudi ID/Iqama, phone, email…), per-IP rate limits, login throttling (`lib/security.js`, `lib/http.js`). |
+| Headers | Strict CSP with a fresh nonce per request and `strict-dynamic` (`middleware.js`), HSTS, `frame-ancestors 'none'`, nosniff, Referrer-Policy, Permissions-Policy, no `X-Powered-By` (`next.config.mjs`). |
 | Other | Open-redirect protection, no stack traces sent to users, masked phone numbers and emails in logs, masked national IDs in the staff UI. |
 
 ### Production checklist
 - [ ] Put the site behind a **WAF** (Cloudflare, AWS WAF, or ModSecurity + OWASP CRS) and terminate TLS there.
 - [ ] Set `SESSION_SECRET` and `DATA_KEY` from a secret manager/KMS. Back up the key separately from the data.
-- [ ] Host patient data **inside the Kingdom** (PDPL data residency). Move `src/store.js` to a managed database
-      (PostgreSQL with encryption) before running more than one instance.
+- [ ] Host patient data **inside the Kingdom** (PDPL data residency). Move `lib/store.js` to a managed database
+      (PostgreSQL with encryption) before running more than one instance. Rate limits are per instance;
+      for stronger limits use your WAF or a shared store such as Upstash Redis.
 - [ ] Take encrypted, off-site daily backups of `DATA_DIR` and test that restores work.
 - [ ] Ship `audit.log` to your SIEM. Schedule vulnerability scans (e.g. OWASP ZAP) and an annual penetration test.
 - [ ] Turn on MFA for staff (e.g. through your identity provider in front of `/admin`).
-- [ ] Replace the arithmetic CAPTCHA with Cloudflare Turnstile or hCaptcha (`checkBot` in `src/security.js`).
+- [ ] Replace the arithmetic CAPTCHA with Cloudflare Turnstile or hCaptcha (`checkBot` in `lib/security.js`).
 - [ ] Have the legal pages reviewed by counsel and your DPO (PDPL/SDAIA, MOH, NPHIES; HIPAA/GDPR for international patients).
 - [ ] Integrate the booking flow with your HIS/EMR and NPHIES for eligibility checks, plus your CRM.
 - [ ] Add a payment gateway (Moyasar, HyperPay or Tap support mada, Apple Pay and STC Pay) for online deposits.
@@ -118,37 +134,22 @@ For the best result, replace them with your own professional photos of the facil
 
 ## Project structure
 ```
-server.js            app setup, security headers, sessions, routing
-src/                 config, content loader, auth/RBAC, crypto, store, audit, notify, automation, slots, chatbot, SEO
-src/routes/          pages, api, portal, admin
-content/             CMS-editable JSON (site settings, photos, doctors, departments, posts, FAQs, reviews, jobs, insurance)
+app/                 Next.js App Router
+  layout.js          <html>, metadata, icon sprite, clinic structured data, analytics
+  (site)/            public pages (home, about, doctors, departments, book, contact, blog, ...)
+  admin/             staff console (appointments, inbox, audit log, photo check)
+  api/               route handlers (booking, slots, forms, chat, auth, cron, ...)
+  sitemap.js, robots.js, not-found.js, globals.css
+components/          React components (Header, Footer, BookingForm, ChatWidget, EmergencyModal, cards, ...)
+lib/                 server logic: content, auth/RBAC, sessions, crypto, store, audit, forms, notify,
+                     automation, slots, chatbot, security
+content/             CMS-editable JSON + legal HTML (site settings, photos, doctors, departments, posts, ...)
 locales/en.json      UI wording
-views/               EJS templates (pages, partials, portal, admin, legal)
-public/              CSS, JS, font, images, Decap CMS (/cms)
-test/                node:test suite
+public/              font, images, Decap CMS (/cms)
+middleware.js        per-request CSP nonce
+instrumentation.js   starts the automation timer on a normal server
+test/                unit tests (node:test) and test/e2e/smoke.js (Playwright)
 ```
-
-## Deploy to Vercel
-The repo is ready for Vercel. `vercel.json` serves `public/` from the CDN and sends every other
-request to the Express app through `api/index.js`.
-
-1. In Vercel → **Settings → Git**, make sure the **Production Branch** is the branch that contains this
-   code (normally `main`).
-2. In **Settings → Environment Variables**, add `SESSION_SECRET`, `DATA_KEY` and `CRON_SECRET`.
-   Generate each one with
-   `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
-   Without them the site still runs, but sign-ins reset whenever Vercel starts a new instance.
-3. Redeploy.
-
-**Important: Vercel has no permanent disk.** Bookings, messages and the audit log are written to `/tmp`,
-which Vercel clears whenever it starts a new instance. That's fine for showing the website, but before
-real patients book you need one of these:
-- host on a server with a persistent disk (Render, Railway, Fly.io, a VPS, or the Docker image below), where
-  everything works as-is; or
-- connect a database (for example Neon/Vercel Postgres) in place of `src/store.js`.
-
-Vercel's free (Hobby) plan runs cron jobs once a day, so reminders go out daily at 08:00 Riyadh time.
-A long-running server sends them every 10 minutes instead.
 
 ## Docker
 ```bash
