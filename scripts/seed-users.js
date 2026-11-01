@@ -2,7 +2,7 @@
 'use strict';
 // Create a staff or patient account:  npm run seed -- admin@clinic.sa "Full Name" admin
 // The password is read from the CLINIC_NEW_PASSWORD env var so it never lands in shell history.
-const auth = require('../src/auth');
+const auth = require('../lib/auth');
 
 (async () => {
   const [email, name, role = 'reception', doctorSlug = null] = process.argv.slice(2);

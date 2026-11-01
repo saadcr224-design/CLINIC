@@ -1,0 +1,13 @@
+<p>This notice summarises the technical and organisational measures we use to protect patient health information. It aligns with the Saudi Personal Data Protection Law (PDPL), the National Cybersecurity Authority Essential Cybersecurity Controls (NCA ECC), Ministry of Health and NPHIES data-exchange requirements and, for international patients, the principles of HIPAA and the GDPR.</p>
+<h2>Encryption</h2>
+<ul><li>All traffic uses HTTPS with HSTS.</li><li>Patient records are encrypted at rest with AES-256-GCM; keys are held separately from data.</li></ul>
+<h2>Access control</h2>
+<ul><li>Role-based access: reception, doctors and administrators see only what their role requires; doctors see only their own patients.</li><li>Sessions expire after 15 minutes of inactivity; login attempts are rate-limited.</li></ul>
+<h2>Accountability</h2>
+<ul><li>Every access to patient data is recorded in a tamper-evident (hash-chained) audit log.</li><li>Staff receive annual privacy and security training and sign confidentiality agreements.</li></ul>
+<h2>Application security</h2>
+<ul><li>Forms are protected by CSRF tokens, CAPTCHA, input validation and rate limiting.</li><li>Strict Content Security Policy and security headers; web application firewall in front of the site.</li><li>Regular vulnerability scanning, annual penetration tests and encrypted, off-site backups tested for restore.</li></ul>
+<h2>Breach notification</h2>
+<p>If a personal-data breach occurs, we notify SDAIA within 72 hours and affected individuals without undue delay, as required by the PDPL.</p>
+<h2>Contact our DPO</h2>
+<p><a href="mailto:dpo@example-clinic.sa">dpo@example-clinic.sa</a></p>

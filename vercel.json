@@ -1,33 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "public",
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "{server.js,src/**,views/**,content/**,locales/**,public/**}",
-      "maxDuration": 10
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api"
-    }
-  ],
-  "crons": [
-    {
-      "path": "/api/cron/automation",
-      "schedule": "0 5 * * *"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(css|js|fonts|img)/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=604800, stale-while-revalidate=86400"
-        }
-      ]
-    }
-  ]
+  "framework": "nextjs",
+  "crons": [{ "path": "/api/cron/automation", "schedule": "0 5 * * *" }]
 }

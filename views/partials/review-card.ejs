@@ -1,9 +1,0 @@
-<% const rdep = departments.find(x => x.slug === r.department); %>
-<figure class="review-card">
-  <%- include('stars', { n: r.rating }) %>
-  <blockquote><p>“<%= L(r.text) %>”</p></blockquote>
-  <figcaption>
-    <span class="avatar" aria-hidden="true"><%= L(r.name).charAt(0) %></span>
-    <span><strong><%= L(r.name) %></strong><small><svg class="ic"><use href="#i-check"/></svg><%= t('testimonials.verified') %><%= rdep ? ' · ' + L(rdep.name) : '' %></small></span>
-  </figcaption>
-</figure>
